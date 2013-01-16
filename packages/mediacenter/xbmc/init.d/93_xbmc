@@ -52,12 +52,6 @@ fi
 # waiting for Xorg to start
   wait_for_xorg
 
-# wait for network
-  wait_for_inet_addr
-
-# wait for udevadm settle to finish
-  wait_for_udevadm_settle
-
 # prevent restrating XBMC at reboot or shutdown
   LOCKDIR="/var/lock/"
   LOCKFILE="xbmc.disabled"
