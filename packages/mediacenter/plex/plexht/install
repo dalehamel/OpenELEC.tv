@@ -61,7 +61,13 @@
 #fi
 
 mkdir -p $INSTALL/usr/share/XBMC/system/
+mkdir -p $INSTALL/usr/bin/
+
 cp $PKG_DIR/config/advancedsettings.xml $INSTALL/usr/share/XBMC/system/
+cp $PKG_DIR/config/guisettings.xml $INSTALL/usr/share/XBMC/system/
+cp $PKG_DIR/bin/pastebin $INSTALL/usr/bin
+cp $PKG_DIR/bin/pastelog $INSTALL/usr/bin
+
 #  if [ -f $PROJECT_DIR/$PROJECT/xbmc/advancedsettings.xml ]; then
 #    cp $PROJECT_DIR/$PROJECT/xbmc/advancedsettings.xml $INSTALL/usr/share/XBMC/system/
 #  else
