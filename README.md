@@ -1,3 +1,19 @@
+This is the plexht branch of OpenELEC. The goal is too add support of the Plex mediacenter (plexapp.com)
+
+So far only the RaspberryPI support is implemented.
+
+
+[BUILD Instructions]
+
+PROJECT=RPi ARCH=arm make
+
+The resulting image will boot openelec and start plex home theater instead of the xbmc mediaceter
+
+
+16.2 - Robert Buhren
+
+
+
 [OpenELEC](http://www.openelec.tv)
 
 # OpenELEC - Open Embedded Linux Entertainment Center
