@@ -89,3 +89,41 @@ cp $PKG_DIR/bin/pastelog $INSTALL/usr/bin
 chmod +x $INSTALL/usr/bin/paste*
 
 
+# install project specific configs
+#  mkdir -p $INSTALL/usr/share/xbmc/config
+#    if [ -f $PROJECT_DIR/$PROJECT/xbmc/guisettings.xml ]; then
+#      cp -R $PROJECT_DIR/$PROJECT/xbmc/guisettings.xml $INSTALL/usr/share/xbmc/config
+#    fi
+#
+#    if [ -f $PROJECT_DIR/$PROJECT/xbmc/sources.xml ]; then
+#      cp -R $PROJECT_DIR/$PROJECT/xbmc/sources.xml $INSTALL/usr/share/xbmc/config
+#    fi
+#
+#  mkdir -p $INSTALL/usr/share/xbmc/system/
+#    if [ -f $PROJECT_DIR/$PROJECT/xbmc/advancedsettings.xml ]; then
+#      cp $PROJECT_DIR/$PROJECT/xbmc/advancedsettings.xml $INSTALL/usr/share/xbmc/system/
+#    else
+#      cp $PKG_DIR/config/advancedsettings.xml $INSTALL/usr/share/xbmc/system/
+#    fi
+#
+#if [ "$XBMC_EXTRA_FONTS" = yes ]; then
+#  mkdir -p $INSTALL/usr/share/xbmc/media/Fonts
+#    cp $PKG_DIR/fonts/*.ttf $INSTALL/usr/share/xbmc/media/Fonts
+#fi
+
+mkdir -p $INSTALL/usr/share/XBMC/system/
+mkdir -p $INSTALL/usr/bin/
+
+cp $PKG_DIR/config/advancedsettings.xml $INSTALL/usr/share/XBMC/system/
+cp $PKG_DIR/config/guisettings.xml $INSTALL/usr/share/XBMC/system/
+cp $PKG_DIR/bin/pastebin $INSTALL/usr/bin
+cp $PKG_DIR/bin/pastelog $INSTALL/usr/bin
+
+#  if [ -f $PROJECT_DIR/$PROJECT/xbmc/advancedsettings.xml ]; then
+#    cp $PROJECT_DIR/$PROJECT/xbmc/advancedsettings.xml $INSTALL/usr/share/XBMC/system/
+#  else
+#    cp $PKG_DIR/config/advancedsettings.xml $INSTALL/usr/share/XBMC/system/
+#  fi
+
+cd $PKG_BUILD/build
+make install DESTDIR=$ROOT/$INSTALL
