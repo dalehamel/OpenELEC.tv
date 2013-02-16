@@ -24,19 +24,7 @@
 . config/options $1
 
 cd $PKG_BUILD
-SRC_DIR=`pwd`
-
-[ ! -d build ] && mkdir build 
-cd build 
-[ -f Makefile ] && rm -rf *
-
-# PlexHT will crash on start without debug set. See card #176
-#if [ "$DEBUG" = yes ]; then
-      CMAKE_BUILD_TYPE="Debug"
-#else
-#      CMAKE_BUILD_TYPE="Release"
-#fi
-
+mkdir build && cd build
 
 MAKEFLAGS=-j1
 strip_lto
