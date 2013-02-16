@@ -24,8 +24,8 @@
 
 # Unpack SRC
 cd $BUILD
-unzip -d $PKG_NAME-$PKG_VERSION -o ../sources/plexht/unstable-openelec.zip
-mv $PKG_NAME-$PKG_VERSION/plex-home-theatre-unstable-openelec/* $PKG_NAME-$PKG_VERSION
-rm -r $PKG_NAME-$PKG_VERSION/plex-home-theatre-unstable-openelec
+unzip -d $PKG_NAME-$PKG_VERSION -o ../sources/plexht/rasplex-openelec.zip
+mv $PKG_NAME-$PKG_VERSION/plex-home-theatre-rasplex-openelec/* $PKG_NAME-$PKG_VERSION
+rm -r $PKG_NAME-$PKG_VERSION/plex-home-theatre-rasplex-openelec
 
 

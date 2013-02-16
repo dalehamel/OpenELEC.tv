@@ -27,7 +27,7 @@
 ################################################################################
 
 # default GPU memory split (do not change if you do not know what you are doing)
-  gpu_mem=128
+#  gpu_mem=128
 
 # SDRAM size based GPU memory split, uncomment and setup to override 'gpu_mem'
   gpu_mem_256=100
@@ -103,3 +103,15 @@
 # all values below this line were inserted from config.txt.bk (your old config)
 # and can be merged with the above values
 ################################################################################
+
+
+
+arm_freq=900
+core_freq=450
+sdram_freq=450
+force_turbo=1
+disable_overscan=1
+hdmi_force_hotplug=1
+hdmi_drive=2
+gpu_mem=100
+
