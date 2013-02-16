@@ -112,7 +112,7 @@
   SQUASHFS_COMPRESSION="lzo"
 
 # Mediacenter to use (xbmc / no)
-  MEDIACENTER="xbmc"
+  MEDIACENTER="plexht"
 
 # Skins to install (Confluence)
 # Space separated list is supported,
