@@ -7,6 +7,8 @@
 </network>
 <fanartheight>560</fanartheight>
 <thumbsize>256</thumbsize>
+
+
  <video>
  <defaultplayer>omxplayer</defaultplayer>
  <defaultdvdplayer>omxplayer</defaultdvdplayer>
@@ -25,4 +27,3 @@
 </advancedsettings>
 
 <!--https://github.com/OpenELEC/OpenELEC.tv/blob/master/projects/RPi/xbmc/advancedsettings.xml-->
-
