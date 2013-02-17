@@ -86,7 +86,8 @@ if [ $devbuild -eq 1 ];then
 fi
 
 scriptdir=$(cd `dirname $0` && pwd)
-outfilename="$distroname-RPi.arm-$version"
+prefix="rasplex"
+outname="rasplex-$version.img"
 tmpdir="$scriptdir/tmp"
 outimagename="$distroname-$version.img"
 outimagefile="$tmpdir/$outimagename"
@@ -101,6 +102,7 @@ DISTRONAME=\"$distroname\"
 sed s/SET_RASPLEXVERSION/"$version"/g $scriptdir/config/version.in > $scriptdir/config/version
 
 
+<<<<<<< HEAD
 # build
 function build {
     echo "Building rasplex"
