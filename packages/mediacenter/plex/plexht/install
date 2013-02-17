@@ -74,5 +74,35 @@ cp $PKG_DIR/bin/pastelog $INSTALL/usr/bin
 #    cp $PKG_DIR/config/advancedsettings.xml $INSTALL/usr/share/XBMC/system/
 #  fi
 
+
+#PYTHON_LIBDIR="`ls -d $INSTALL/usr/lib/python*`"
+
+mkdir -p $INSTALL/usr/lib/XBMC
+
+cd $PKG_BUILD
+find system addons \
+    -regextype posix-extended -type f \
+    -not -iregex ".*svn.*|.*win32(dx)?\.vis|.*osx\.vis" \
+    -iregex ".*-linux.*|.*-arm.*|.*\.vis|.*\.xbs" \
+    -exec install -D "{}" $ROOT/$INSTALL/usr/lib/XBMC/"{}" ";"
+
+find addons language media sounds userdata system \
+    -regextype posix-extended -type f \
+    -not -iregex ".*-linux.*|.*-arm.*|.*\.vis|.*\.xbs|.*svn.*|.*\.orig|.*\.so|.*\.dll|.*\.pyd|.*python|.*\.zlib|.*\.conf" \
+    -exec install -D -m 0644 "{}" $ROOT/$INSTALL/usr/share/XBMC/"{}" ";"
+cd -
+
+
+mkdir -p $INSTALL/usr/share/XBMC/addons
+    cp -R $PKG_DIR/config/os.openelec.tv $INSTALL/usr/share/XBMC/addons
+    $SED "s|@OS_VERSION@|$OS_VERSION|g" -i $INSTALL/usr/share/XBMC/addons/os.openelec.tv/addon.xml
+    cp -R $PKG_DIR/config/repository.openelec.tv $INSTALL/usr/share/XBMC/addons
+    $SED "s|@ADDON_URL@|$ADDON_URL|g" -i $INSTALL/usr/share/XBMC/addons/repository.openelec.tv/addon.xml
+
+
+
+
+
+
 cd $PKG_BUILD/build
 make install DESTDIR=$ROOT/$INSTALL
