@@ -4,7 +4,6 @@
 version=$1
 scriptdir=$(cd `dirname $0` && pwd)
 prefix="rasplex"
-loopback=`losetup -f`
 outname="rasplex-$version.img"
 tmpdir="$scriptdir/tmp"
 outfile="$tmpdir/$outname"
@@ -22,6 +21,13 @@ dd if=/dev/zero of=$outfile bs=1M count=910
 
 echo "Creating SD image"
 cd $tmpdir/$prefix-RPi.arm-2.99.2
+
+if [ "`losetup -f`" != "/dev/loop0" ];then
+    losetup -d /dev/loop0  || eval 'echo "It demands loop0 instead of first free loopback device... : (" ; exit 1'
+fi
+
+losetup -d /dev/loop0 || [ echo "It demands loop0 instead of first free device... : (" && exit 1 ]
+loopback=`losetup -f`
 ./create_sdcard  $loopback $outfile
 
 echo "Created SD image at $outfile"
