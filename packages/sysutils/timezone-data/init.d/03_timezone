@@ -29,6 +29,10 @@ progress "setting timezone"
     TIMEZONE=`sed -n -e 's/.*<timezone>\(.*\)<\/timezone>.*/\1/p' /storage/.xbmc/userdata/guisettings.xml`
   fi
 
-  if [ ! "$TIMEZONE" == "" -a -f "/usr/share/zoneinfo/$TIMEZONE" ] ; then
-    ln -sf "/usr/share/zoneinfo/$TIMEZONE" /var/run/localtime
+if [ -f /usr/share/xbmc/addons/os.openelec.settings/default_settings.xml ]; then
+  if [ ! -f $HOME/.plexht/userdata/addon_data/os.openelec.settings/settings.xml ]; then
+    mkdir -p $HOME/.plexht/userdata/addon_data/os.openelec.settings
+    cp /usr/share/xbmc/addons/os.openelec.settings/default_settings.xml \
+       $HOME/.plexht/userdata/addon_data/os.openelec.settings/settings.xml
   fi
+fi
