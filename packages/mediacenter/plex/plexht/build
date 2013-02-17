@@ -24,18 +24,31 @@
 . config/options $1
 
 cd $PKG_BUILD
-mkdir build && cd build
+SRC_DIR=`pwd`
+
+[ ! -d build ] && mkdir build 
+cd build 
+[ -f Makefile ] && rm -rf *
+
 
 MAKEFLAGS=-j1
 strip_lto
 LDFLAGS=`echo $LDFLAGS | sed -e "s|-Wl,--as-needed||"`
-
+cwd=`pwd`
+TOOLCHAIN_DIR="$(cd `dirname ../../toolchain` && pwd)/toolchain"
+echo $TOOLCHAIN_DIR
+cd $cwd
+echo $SRC_DIR
 cmake -DCMAKE_TOOLCHAIN_FILE=$CMAKE_CONF \
       -DCMAKE_INSTALL_PREFIX=$INSTALL/usr \
+      -DENABLE_PYTHON=on \
+       -DSWIG_EXECUTABLE=$TOOLCHAIN_DIR/bin/swig \
+       -DSWIG_DIR=$TOOLCHAIN_DIR \
       -DLIBUSBDIR=$SYSROOT_PREFIX/usr \
       -DOPTIONAL_INCLUDE_DIR=$SYSROOT_PREFIX/usr/include \
-      -DCMAKE_INCLUDE_PATH="$SYSROOT_PREFIX/usr/include/interface/vmcs_host/linux;$SYSROOT_PREFIX/usr/include/interface/vcos/pthreads" \
-      ..
-
-make -j1
+      -DCMAKE_INCLUDE_PATH="$SYSROOT_PREFIX/usr/include/interface/vmcs_host/linux;$SYSROOT_PREFIX/usr/include/interface/vcos/pthreads;$TOOLCHAIN_DIR/armv6zk-openelec-linux-gnueabi/sysroot/usr/include/python2.7/" \
+      -DRPI_EXTERNAL_PYTHON_HOME="$TOOLCHAIN_DIR/armv6zk-openelec-linux-gnueabi/sysroot/usr" \
+        $SRC_DIR
+pwd
+make -j1 VERBOSE=1
 

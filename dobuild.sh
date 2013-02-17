@@ -11,7 +11,7 @@ outfile="$tmpdir/$outname"
 archive="$outfile.gz"
 targetdir="$scriptdir/target"
 
-time PROJECT=RPi ARCH=arm make release
+time PROJECT=RPi ARCH=arm make release || exit
 mkdir -p $tmpdir
 rm -rf $tmpdir/*
 mv $targetdir/$prefix*.tar.bz2 $tmpdir
@@ -21,7 +21,7 @@ dd if=/dev/zero of=$outfile bs=1M count=910
 
 
 echo "Creating SD image"
-cd $tmpdir/$prefix*
+cd $tmpdir/$prefix-RPi.arm-2.99.2
 ./create_sdcard  $loopback $outfile
 
 echo "Created SD image at $outfile"
