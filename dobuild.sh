@@ -104,7 +104,6 @@ sed s/SET_RASPLEXVERSION/"$version"/g $scriptdir/config/version.in > $scriptdir/
 # build
 function build {
     echo "Building rasplex"
-
     source $scriptdir/config/version
     if [ $force_pht_update -eq 1 ]; then
         rm -r "sources/plexht"
