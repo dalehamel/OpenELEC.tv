@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <advancedsettings>
 <showfirstrun>77</showfirstrun>
  <cputempcommand>/opt/vc/bin/vcgencmd measure_temp | sed -e 's/temp=\([0-9]*\).*/\1 C/'</cputempcommand>
@@ -25,5 +26,3 @@
   <destroywindowcontrols>false</destroywindowcontrols>
   <useddsfanart>false</useddsfanart>
 </advancedsettings>
-
-<!--https://github.com/OpenELEC/OpenELEC.tv/blob/master/projects/RPi/xbmc/advancedsettings.xml-->
