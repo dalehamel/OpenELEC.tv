@@ -33,4 +33,11 @@ PKG_SHORTDESC="compositeproto: Composite extension headers"
 PKG_LONGDESC="Composite extension headers"
 PKG_IS_ADDON="no"
 
-PKG_AUTORECONF="yes"
+if [ -f /usr/share/XBMC/addons/os.openelec.settings/default_settings.xml ]; then
+  if [ ! -f $HOME/.plexht/userdata/addon_data/os.openelec.settings/settings.xml ]; then
+    mkdir -p $HOME/.plexht/userdata/addon_data/os.openelec.settings
+    cp /usr/share/XBMC/addons/os.openelec.settings/default_settings.xml \
+       $HOME/.plexht/userdata/addon_data/os.openelec.settings/settings.xml
+  fi
+
+fi

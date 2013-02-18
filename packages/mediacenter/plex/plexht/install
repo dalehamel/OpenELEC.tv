@@ -60,14 +60,6 @@
 #    cp $PKG_DIR/fonts/*.ttf $INSTALL/usr/share/xbmc/media/Fonts
 #fi
 
-mkdir -p $INSTALL/usr/share/XBMC/system/
-mkdir -p $INSTALL/usr/bin/
-
-cp $PKG_DIR/config/advancedsettings.xml $INSTALL/usr/share/XBMC/system/
-cp $PKG_DIR/config/guisettings.xml $INSTALL/usr/share/XBMC/system/
-cp $PKG_DIR/bin/pastebin $INSTALL/usr/bin
-cp $PKG_DIR/bin/pastelog $INSTALL/usr/bin
-
 #  if [ -f $PROJECT_DIR/$PROJECT/xbmc/advancedsettings.xml ]; then
 #    cp $PROJECT_DIR/$PROJECT/xbmc/advancedsettings.xml $INSTALL/usr/share/XBMC/system/
 #  else
@@ -99,6 +91,19 @@ mkdir -p $INSTALL/usr/share/XBMC/addons
     cp -R $PKG_DIR/config/repository.openelec.tv $INSTALL/usr/share/XBMC/addons
     $SED "s|@ADDON_URL@|$ADDON_URL|g" -i $INSTALL/usr/share/XBMC/addons/repository.openelec.tv/addon.xml
 
+
+
+
+mkdir -p $INSTALL/usr/share/XBMC/system/
+mkdir -p $INSTALL/usr/bin/
+
+cp $PKG_DIR/config/advancedsettings.xml $INSTALL/usr/share/XBMC/system/
+cp $PKG_DIR/config/advancedsettings.xml $INSTALL/usr/share/XBMC/
+cp $PKG_DIR/config/guisettings.xml $INSTALL/usr/share/XBMC/system/
+cp $PKG_DIR/config/guisettings.xml $INSTALL/usr/share/XBMC/
+cp $PKG_DIR/bin/pastebin $INSTALL/usr/bin
+cp $PKG_DIR/bin/pastelog $INSTALL/usr/bin
+chmod +x $INSTALL/usr/bin
 
 
 
