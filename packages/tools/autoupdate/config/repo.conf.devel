@@ -18,7 +18,7 @@
 #  http://www.gnu.org/copyleft/gpl.html
 ################################################################################
 # Location of repo
-  UPDATEURL="http://snapshots.openelec.tv"
+  UPDATEURL="http://sourceforge.net/projects/rasplex/files/autoupdate/`cat /etc/distribution`"
 
 # Setup Download tool (wget/scp)
   DL_METHOD="wget"
