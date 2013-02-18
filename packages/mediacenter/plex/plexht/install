@@ -41,13 +41,7 @@ find build/lib -not \( -name CMakeFiles -prune \) \
     -iregex ".*-linux.*|.*-arm.*|.*\.vis|.*\.xbs" \
     -exec cp "{}" $ROOT/$INSTALL/usr/lib/plexhometheater/system/ ";"
 
-  find system addons \
-    -regextype posix-extended -type f \
-    -not -iregex ".*svn.*|.*win32(dx)?\.vis|.*osx\.vis" \
-    -iregex ".*-linux.*|.*-arm.*|.*\.vis|.*\.xbs" \
-    -exec install -D "{}" $ROOT/$INSTALL/usr/lib/plexhometheater/"{}" ";"
-  
-  find addons language media sounds userdata system \
+find addons language media sounds userdata system \
     -regextype posix-extended -type f \
     -not -iregex ".*-linux.*|.*-arm.*|.*\.vis|.*\.xbs|.*svn.*|.*\.orig|.*\.so|.*\.dll|.*\.pyd|.*python|.*\.zlib|.*\.conf" \
     -exec install -D -m 0644 "{}" $ROOT/$INSTALL/usr/share/xbmc/"{}" ";"
@@ -86,79 +80,6 @@ cp $PKG_DIR/config/guisettings.xml $INSTALL/usr/share/xbmc/system/
 cp $PKG_DIR/config/guisettings.xml $INSTALL/usr/share/xbmc/
 cp $PKG_DIR/bin/pastebin $INSTALL/usr/bin
 cp $PKG_DIR/bin/pastelog $INSTALL/usr/bin
-chmod +x $INSTALL/usr/bin/paste*
-
-
-# install project specific configs
-#  mkdir -p $INSTALL/usr/share/xbmc/config
-#    if [ -f $PROJECT_DIR/$PROJECT/xbmc/guisettings.xml ]; then
-#      cp -R $PROJECT_DIR/$PROJECT/xbmc/guisettings.xml $INSTALL/usr/share/xbmc/config
-#    fi
-#
-#    if [ -f $PROJECT_DIR/$PROJECT/xbmc/sources.xml ]; then
-#      cp -R $PROJECT_DIR/$PROJECT/xbmc/sources.xml $INSTALL/usr/share/xbmc/config
-#    fi
-#
-#  mkdir -p $INSTALL/usr/share/xbmc/system/
-#    if [ -f $PROJECT_DIR/$PROJECT/xbmc/advancedsettings.xml ]; then
-#      cp $PROJECT_DIR/$PROJECT/xbmc/advancedsettings.xml $INSTALL/usr/share/xbmc/system/
-#    else
-#      cp $PKG_DIR/config/advancedsettings.xml $INSTALL/usr/share/xbmc/system/
-#    fi
-#
-#if [ "$XBMC_EXTRA_FONTS" = yes ]; then
-#  mkdir -p $INSTALL/usr/share/xbmc/media/Fonts
-#    cp $PKG_DIR/fonts/*.ttf $INSTALL/usr/share/xbmc/media/Fonts
-#fi
-
-#  if [ -f $PROJECT_DIR/$PROJECT/xbmc/advancedsettings.xml ]; then
-#    cp $PROJECT_DIR/$PROJECT/xbmc/advancedsettings.xml $INSTALL/usr/share/XBMC/system/
-#  else
-#    cp $PKG_DIR/config/advancedsettings.xml $INSTALL/usr/share/XBMC/system/
-#  fi
-
-
-#PYTHON_LIBDIR="`ls -d $INSTALL/usr/lib/python*`"
-
-mkdir -p $INSTALL/usr/lib/XBMC
-
-cd $PKG_BUILD
-find system addons \
-    -regextype posix-extended -type f \
-    -not -iregex ".*svn.*|.*win32(dx)?\.vis|.*osx\.vis" \
-    -iregex ".*-linux.*|.*-arm.*|.*\.vis|.*\.xbs" \
-    -exec install -D "{}" $ROOT/$INSTALL/usr/lib/XBMC/"{}" ";"
-
-find addons language media sounds userdata system \
-    -regextype posix-extended -type f \
-    -not -iregex ".*-linux.*|.*-arm.*|.*\.vis|.*\.xbs|.*svn.*|.*\.orig|.*\.so|.*\.dll|.*\.pyd|.*python|.*\.zlib|.*\.conf" \
-    -exec install -D -m 0644 "{}" $ROOT/$INSTALL/usr/share/XBMC/"{}" ";"
-cd -
-
-
-mkdir -p $INSTALL/usr/share/XBMC/addons
-    cp -R $PKG_DIR/config/os.openelec.tv $INSTALL/usr/share/XBMC/addons
-    $SED "s|@OS_VERSION@|$OS_VERSION|g" -i $INSTALL/usr/share/XBMC/addons/os.openelec.tv/addon.xml
-    cp -R $PKG_DIR/config/repository.openelec.tv $INSTALL/usr/share/XBMC/addons
-    $SED "s|@ADDON_URL@|$ADDON_URL|g" -i $INSTALL/usr/share/XBMC/addons/repository.openelec.tv/addon.xml
-
-
-
-
-mkdir -p $INSTALL/usr/share/XBMC/system/
-mkdir -p $INSTALL/usr/bin/
-
-cp $PKG_DIR/config/advancedsettings.xml $INSTALL/usr/share/XBMC/system/
-cp $PKG_DIR/config/advancedsettings.xml $INSTALL/usr/share/XBMC/
-cp $PKG_DIR/config/guisettings.xml $INSTALL/usr/share/XBMC/system/
-cp $PKG_DIR/config/guisettings.xml $INSTALL/usr/share/XBMC/
-cp $PKG_DIR/bin/pastebin $INSTALL/usr/bin
-cp $PKG_DIR/bin/pastelog $INSTALL/usr/bin
 chmod +x $INSTALL/usr/bin
 
 
-
-
-
-cd $PKG_BUILD/build
-make install DESTDIR=$ROOT/$INSTALL
