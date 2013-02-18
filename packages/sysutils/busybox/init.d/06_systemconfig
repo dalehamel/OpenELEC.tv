@@ -23,7 +23,7 @@
 #
 # runlevels: openelec, textmode
 
-OPENELEC_SETTINGS="$HOME/.xbmc/userdata/addon_data/os.openelec.settings/settings.xml"
+OPENELEC_SETTINGS="$HOME/.plexht/userdata/addon_data/os.openelec.settings/settings.xml"
 
 if [ -f "$OPENELEC_SETTINGS" ]; then
     progress "creating system settings"

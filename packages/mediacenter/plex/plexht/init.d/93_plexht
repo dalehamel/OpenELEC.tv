@@ -24,7 +24,7 @@
 
 LIRCDEV="/var/run/lirc/lircd"
 [ -e /var/run/lirc/lircd.irtrans ] && LIRCDEV="/var/run/lirc/lircd.irtrans"
-XBMC_ARGS="--standalone -fs --lircdev $LIRCDEV"
+XBMC_ARGS="--standalone -fs --lircdev $LIRCDEV --debug"
 
 progress "starting XBMC"
 
