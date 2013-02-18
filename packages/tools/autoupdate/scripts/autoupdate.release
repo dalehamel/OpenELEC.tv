@@ -20,7 +20,7 @@
 #  http://www.gnu.org/copyleft/gpl.html
 ################################################################################
 
-TMP_DIR="$HOME/.xbmc/temp"
+TMP_DIR="$HOME/.plexht/temp"
 
 if [ -f /etc/update.conf ]; then
   . /etc/update.conf
