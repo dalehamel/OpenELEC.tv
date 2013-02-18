@@ -2,13 +2,20 @@
 [ -z $1 ] && echo "Must give a version number" && exit 1
 
 version=$1
+distroname="rasplex"
 scriptdir=$(cd `dirname $0` && pwd)
-prefix="rasplex"
-outname="rasplex-$version.img"
+prefix="$distroname"
+outname="$distroname-$version.img"
 tmpdir="$scriptdir/tmp"
 outfile="$tmpdir/$outname"
 archive="$outfile.gz"
 targetdir="$scriptdir/target"
+
+# set rasplex config
+echo "
+RASPLEX_VERSION=\"$version\"
+DISTRONAME=\"$distroname\"
+" > $scriptdir/config/rasplex
 
 time PROJECT=RPi ARCH=arm make release || exit
 mkdir -p $tmpdir
