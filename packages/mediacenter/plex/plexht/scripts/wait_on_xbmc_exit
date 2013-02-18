@@ -20,9 +20,10 @@
 #  http://www.gnu.org/copyleft/gpl.html
 ################################################################################
 
-. config/options $1
+count=0
 
-mkdir -p $INSTALL/usr/share/xbmc/addons/os.openelec.settings
-  cp -R $PKG_DIR/source/* $INSTALL/usr/share/xbmc/addons/os.openelec.settings
-  cp -R $PKG_DIR/config/* $INSTALL/usr/share/xbmc/addons/os.openelec.settings
-  $SED "s|@OS_VERSION@|$OS_VERSION|g" -i $INSTALL/usr/share/xbmc/addons/os.openelec.settings/addon.xml
+while [ $(pidof xbmc.bin) -a $count -le 20 ]; do
+  usleep 250000
+  logger -t wait_on_xbmc_exit "### Waiting for XBMC to Exit - $count ###"
+  count=$((count+1))
+done

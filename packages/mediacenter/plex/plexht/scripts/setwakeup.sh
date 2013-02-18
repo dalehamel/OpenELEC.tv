@@ -20,9 +20,9 @@
 #  http://www.gnu.org/copyleft/gpl.html
 ################################################################################
 
-. config/options $1
-
-mkdir -p $INSTALL/usr/share/xbmc/addons/os.openelec.settings
-  cp -R $PKG_DIR/source/* $INSTALL/usr/share/xbmc/addons/os.openelec.settings
-  cp -R $PKG_DIR/config/* $INSTALL/usr/share/xbmc/addons/os.openelec.settings
-  $SED "s|@OS_VERSION@|$OS_VERSION|g" -i $INSTALL/usr/share/xbmc/addons/os.openelec.settings/addon.xml
+if [ -f /sys/class/rtc/rtc0/wakealarm ]; then
+  logger -t setwakeup.sh "### Setting system wakeup time ###"
+  echo 0 > /sys/class/rtc/rtc0/wakealarm
+  echo $1 > /sys/class/rtc/rtc0/wakealarm
+  logger -t setwakeup.sh "### $(cat /proc/driver/rtc) ###"
+fi
