@@ -22,6 +22,7 @@
 
 . config/options $1
 
+<<<<<<< HEAD
 echo "Look here dale"
 echo $PKG_BUILD
 echo $TARGET_NAME
@@ -32,5 +33,10 @@ cd $PKG_BUILD
         --disable-dependency-tracking \
         --host=$TARGET_NAME \
         --build=$HOST_NAME \
+=======
+cd $PKG_BUILD
+./configure --host=$TARGET_NAME \
+            --build=$HOST_NAME \
+>>>>>>> Initial support for oprofile. Not yet working.
 	    --prefix=/usr
 make

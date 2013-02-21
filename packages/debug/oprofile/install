@@ -23,6 +23,7 @@
 . config/options $1
 
 mkdir -p $INSTALL/usr/bin
+<<<<<<< HEAD
 echo "Install dir:"
 cwd=`pwd`
 mkdir -p $INSTALL
@@ -36,3 +37,6 @@ make install
 cd $INSTALLDIR
 ln -s storage root
 
+=======
+  cp $PKG_BUILD/strace $INSTALL/usr/bin
+>>>>>>> Initial support for oprofile. Not yet working.

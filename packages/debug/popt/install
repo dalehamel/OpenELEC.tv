@@ -23,6 +23,7 @@
 . config/options $1
 
 echo "Install dir:" 
+<<<<<<< HEAD
 cwd=`pwd`
 mkdir -p $INSTALL
 cd $INSTALL
@@ -32,3 +33,8 @@ cd $cwd
 cd $PKG_BUILD
 make install DESTDIR=$INSTALLDIR &> output &
 cat output
+=======
+echo $INSTALL
+cd $PKG_BUILD
+make install DESTDIR=$INSTALL
+>>>>>>> Initial support for oprofile. Not yet working.

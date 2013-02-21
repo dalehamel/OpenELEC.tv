@@ -25,8 +25,13 @@ PKG_ARCH="any"
 PKG_LICENSE="BSD"
 PKG_SITE="http://sourceforge.net/projects/oprofile/"
 PKG_URL="$SOURCEFORGE_SRC/oprofile/oprofile/$PKG_NAME-$PKG_VERSION/$PKG_NAME-$PKG_VERSION.tar.gz"
+<<<<<<< HEAD
 PKG_DEPENDS="popt coreutils"
 PKG_BUILD_DEPENDS="toolchain popt coreutils"
+=======
+PKG_DEPENDS="popt"
+PKG_BUILD_DEPENDS="toolchain popt"
+>>>>>>> Initial support for oprofile. Not yet working.
 PKG_PRIORITY="optional"
 PKG_SECTION="debug"
 PKG_SHORTDESC="strace: Trace system calls and signals"
