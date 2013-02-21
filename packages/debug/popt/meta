@@ -18,20 +18,19 @@
 #  http://www.gnu.org/copyleft/gpl.html
 ################################################################################
 
-PKG_NAME="debug"
-PKG_VERSION=""
+PKG_NAME="popt"
+PKG_VERSION="1.16"
 PKG_REV="1"
 PKG_ARCH="any"
-PKG_LICENSE="GPL"
-PKG_SITE="http://www.openelec.tv"
-PKG_URL=""
-PKG_DEPENDS="strace gdb oprofile"
-PKG_BUILD_DEPENDS="toolchain popt"
+PKG_LICENSE="BSD"
+PKG_SITE="http://rpm5.org/"
+PKG_URL="http://rpm5.org/files/popt/popt-1.16.tar.gz"
+PKG_DEPENDS=""
+PKG_BUILD_DEPENDS="toolchain"
 PKG_PRIORITY="optional"
 PKG_SECTION="debug"
-PKG_SHORTDESC="debug: Metapackage for installing debugging tools"
-PKG_LONGDESC="debug is a Metapackage for installing debugging tools"
+PKG_SHORTDESC="strace: Trace system calls and signals"
+PKG_LONGDESC="In the simplest case strace runs the specified command until it exits. It intercepts and records the system calls which are called by a process and the signals which are received by a process. The name of each system call, its arguments and its return value are printed on standard error or to the file specified with the -o option."
 PKG_IS_ADDON="no"
 
 PKG_AUTORECONF="no"
-
