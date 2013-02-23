@@ -2,25 +2,32 @@
 [ -z $1 ] && echo "Must give a version number" && exit 1
 
 version=$1
+distroname="rasplex"
 scriptdir=$(cd `dirname $0` && pwd)
-prefix="rasplex"
-outname="rasplex-$version.img"
+prefix="$distroname"
+outname="$distroname-$version.img"
 tmpdir="$scriptdir/tmp"
 outfile="$tmpdir/$outname"
 archive="$outfile.gz"
 targetdir="$scriptdir/target"
 
+# set rasplex config
+echo "
+RASPLEX_VERSION=\"$version\"
+DISTRONAME=\"$distroname\"
+" > $scriptdir/config/rasplex
+
 time PROJECT=RPi ARCH=arm make release || exit
 mkdir -p $tmpdir
 rm -rf $tmpdir/*
-mv $targetdir/$prefix*.tar.bz2 $tmpdir
+cp $targetdir/$prefix-RPi.arm-$version.tar.bz2 $tmpdir
 echo "Extracting release tarball..."
-tar -xpjf $tmpdir/$prefix*.tar.bz2 -C $tmpdir
+tar -xpjf $tmpdir/$prefix-RPi.arm-$version.tar.bz2 -C $tmpdir
 dd if=/dev/zero of=$outfile bs=1M count=910 
 
 
 echo "Creating SD image"
-cd $tmpdir/$prefix-RPi.arm-2.99.2
+cd $tmpdir/$prefix-RPi.arm-$version
 
 if [ "`losetup -f`" != "/dev/loop0" ];then
     losetup -d /dev/loop0  || eval 'echo "It demands loop0 instead of first free loopback device... : (" ; exit 1'

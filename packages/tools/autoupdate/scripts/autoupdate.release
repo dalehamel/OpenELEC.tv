@@ -20,7 +20,7 @@
 #  http://www.gnu.org/copyleft/gpl.html
 ################################################################################
 
-TMP_DIR="$HOME/.xbmc/temp"
+TMP_DIR="$HOME/.plexht/temp"
 
 if [ -f /etc/update.conf ]; then
   . /etc/update.conf
@@ -55,7 +55,13 @@ download () {
 }
 
 send_message () {
-  xbmc-send --host=127.0.0.1 -a "Notification(Automatic update service:,$1,20000)"
+  which xbmc-send
+  if [ $? -eq 0 ]
+  then
+    xbmc-send --host=127.0.0.1 -a "Notification(Automatic update service:,$1,20000)"
+  else
+    logger "Automatic update service: $1"
+  fi
 }
 
 if [ ! -f /var/lock/update.lock ]; then

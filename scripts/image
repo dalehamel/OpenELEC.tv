@@ -21,6 +21,7 @@
 ################################################################################
 
 . config/options $1
+. config/rasplex
 
 show_config
 
@@ -40,7 +41,7 @@ if [ "$OPENELEC_VERSION" = devel -o "$OPENELEC_VERSION" = debug ]; then
   OPENELEC_VERSION=$OPENELEC_VERSION-$BUILD_DATE-r$GIT_BUILD
 fi
 
-TARGET_VERSION="$PROJECT.$TARGET_ARCH-$OPENELEC_VERSION"
+TARGET_VERSION="$PROJECT.$TARGET_ARCH-$RASPLEX_VERSION"
 IMAGE_NAME="$DISTRONAME-$TARGET_VERSION"
 
 # setup fakeroot
@@ -79,9 +80,9 @@ IMAGE_NAME="$DISTRONAME-$TARGET_VERSION"
 
   echo "$DISTRONAME" > $INSTALL/etc/distribution
   echo "$PROJECT.$TARGET_ARCH" > $INSTALL/etc/arch
-  echo "$OPENELEC_VERSION" > $INSTALL/etc/version
+  echo "$RASPLEX_VERSION" > $INSTALL/etc/version
   echo "$TARGET_VERSION" > $INSTALL/etc/release
-  echo "$DISTRONAME ($([ "$OFFICIAL" = "yes" ] && echo "official" ||  echo "unofficial")) - Version: $OPENELEC_VERSION" > $INSTALL/etc/openelec-release
+  echo "$DISTRONAME - Version: $RASPLEX_VERSION" > $INSTALL/etc/openelec-release
   if [ -n "$GIT_HASH" ]; then
     echo "$GIT_HASH" >> $INSTALL/etc/gitrev
   fi
@@ -98,7 +99,7 @@ IMAGE_NAME="$DISTRONAME-$TARGET_VERSION"
   echo $GREETING2 >> $INSTALL/etc/issue
   echo $GREETING3 >> $INSTALL/etc/issue
   echo $GREETING4 >> $INSTALL/etc/issue
-  echo "$DISTRONAME ($([ "$OFFICIAL" = "yes" ] && echo "official" ||  echo "unofficial")) Version: $OPENELEC_VERSION" >> $INSTALL/etc/issue
+  echo "$DISTRONAME Version: $RASPLEX_VERSION" >> $INSTALL/etc/issue
   if [ -n "$GIT_HASH" ]; then
     echo "$DISTRONAME git: $GIT_HASH" >> $INSTALL/etc/issue
   fi
