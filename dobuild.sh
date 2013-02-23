@@ -85,24 +85,21 @@ if [ $devbuild -eq 1 ];then
     echo "This is a development build!"
 fi
 
-scriptdir=$(cd `dirname $0` && pwd)
-prefix="rasplex"
-outname="rasplex-$version.img"
-tmpdir="$scriptdir/tmp"
-outimagename="$distroname-$version.img"
-outimagefile="$tmpdir/$outimagename"
-targetdir="$scriptdir/target"
+version=$1
+distroname="rasplex"
 
-# set rasplex config
-echo "
-RASPLEX_VERSION=\"$version\"
-DISTRONAME=\"$distroname\"
-" > $scriptdir/config/rasplex
-
-sed s/SET_RASPLEXVERSION/"$version"/g $scriptdir/config/version.in > $scriptdir/config/version
+time PROJECT=RPi ARCH=arm make release || exit
+mkdir -p $tmpdir
+rm -rf $tmpdir/*
+cp $targetdir/$prefix-RPi.arm-$version.tar.bz2 $tmpdir
+echo "Extracting release tarball..."
+tar -xpjf $tmpdir/$prefix-RPi.arm-$version.tar.bz2 -C $tmpdir
+dd if=/dev/zero of=$outfile bs=1M count=910 
 
 
-<<<<<<< HEAD
+echo "Creating SD image"
+cd $tmpdir/$prefix-RPi.arm-$version
+
 # build
 function build {
     echo "Building rasplex"
