@@ -11,7 +11,7 @@
         <defaultlibview pathversion="1"></defaultlibview>
     </mymusic>
     <myvideos>
-        <startwindow>10024</startwindow>
+        <startwindow>10025</startwindow>
         <stackvideos>false</stackvideos>
         <watchmodemovies>0</watchmodemovies>
         <watchmodetvshows>0</watchmodetvshows>
@@ -29,88 +29,88 @@
     </myvideos>
     <viewstates>
         <musicnavartists>
-            <viewmode>0</viewmode>
+            <viewmode>65536</viewmode>
             <sortmethod>1</sortmethod>
             <sortorder>1</sortorder>
         </musicnavartists>
         <musicnavalbums>
-            <viewmode>0</viewmode>
+            <viewmode>65536</viewmode>
             <sortmethod>1</sortmethod>
             <sortorder>1</sortorder>
         </musicnavalbums>
         <musicnavsongs>
-            <viewmode>0</viewmode>
+            <viewmode>65536</viewmode>
             <sortmethod>1</sortmethod>
             <sortorder>1</sortorder>
         </musicnavsongs>
         <musiclastfm>
-            <viewmode>0</viewmode>
+            <viewmode>65536</viewmode>
             <sortmethod>1</sortmethod>
             <sortorder>1</sortorder>
         </musiclastfm>
         <videonavactors>
-            <viewmode>0</viewmode>
+            <viewmode>65536</viewmode>
             <sortmethod>1</sortmethod>
             <sortorder>1</sortorder>
         </videonavactors>
         <videonavyears>
-            <viewmode>0</viewmode>
+            <viewmode>65536</viewmode>
             <sortmethod>1</sortmethod>
             <sortorder>1</sortorder>
         </videonavyears>
         <videonavgenres>
-            <viewmode>0</viewmode>
+            <viewmode>65536</viewmode>
             <sortmethod>1</sortmethod>
             <sortorder>1</sortorder>
         </videonavgenres>
         <videonavtitles>
-            <viewmode>0</viewmode>
+            <viewmode>65536</viewmode>
             <sortmethod>1</sortmethod>
             <sortorder>1</sortorder>
         </videonavtitles>
         <videonavepisodes>
-            <viewmode>0</viewmode>
+            <viewmode>65536</viewmode>
             <sortmethod>1</sortmethod>
             <sortorder>1</sortorder>
         </videonavepisodes>
         <videonavseasons>
-            <viewmode>0</viewmode>
+            <viewmode>65536</viewmode>
             <sortmethod>1</sortmethod>
             <sortorder>1</sortorder>
         </videonavseasons>
         <videonavtvshows>
-            <viewmode>0</viewmode>
+            <viewmode>65536</viewmode>
             <sortmethod>1</sortmethod>
             <sortorder>1</sortorder>
         </videonavtvshows>
         <videonavmusicvideos>
-            <viewmode>0</viewmode>
+            <viewmode>65536</viewmode>
             <sortmethod>1</sortmethod>
             <sortorder>1</sortorder>
         </videonavmusicvideos>
         <programs>
-            <viewmode>0</viewmode>
+            <viewmode>65536</viewmode>
             <sortmethod>1</sortmethod>
             <sortorder>1</sortorder>
         </programs>
         <pictures>
-            <viewmode>0</viewmode>
+            <viewmode>65536</viewmode>
             <sortmethod>1</sortmethod>
             <sortorder>1</sortorder>
         </pictures>
         <videofiles>
-            <viewmode>0</viewmode>
-            <sortmethod>1</sortmethod>
+            <viewmode>65592</viewmode>
+            <sortmethod>2</sortmethod>
             <sortorder>1</sortorder>
         </videofiles>
         <musicfiles>
-            <viewmode>0</viewmode>
+            <viewmode>65536</viewmode>
             <sortmethod>1</sortmethod>
             <sortorder>1</sortorder>
         </musicfiles>
     </viewstates>
     <general>
-        <systemtotaluptime>0</systemtotaluptime>
+        <systemtotaluptime>9</systemtotaluptime>
         <addonautoupdate>true</addonautoupdate>
         <addonnotifications>true</addonnotifications>
         <addonforeignfilter>false</addonforeignfilter>
@@ -175,6 +175,15 @@
         <autorun>false</autorun>
         <playerregion>0</playerregion>
     </dvds>
+    <epg>
+        <daystodisplay>3</daystodisplay>
+        <defaultguideview>3</defaultguideview>
+        <epgupdate>120</epgupdate>
+        <hidenoinfoavailable>true</hidenoinfoavailable>
+        <ignoredbforclient>false</ignoredbforclient>
+        <preventupdateswhileplayingtv>false</preventupdateswhileplayingtv>
+        <resetepg></resetepg>
+    </epg>
     <filelists>
         <allowfiledeletion>false</allowfiledeletion>
         <ignorethewhensorting>true</ignorethewhensorting>
@@ -208,7 +217,7 @@
         <skintheme>SKINDEFAULT</skintheme>
         <skinzoom>0</skinzoom>
         <soundskin>SKINDEFAULT</soundskin>
-        <startupwindow>1</startupwindow>
+        <startupwindow>10000</startupwindow>
     </lookandfeel>
     <masterlock>
         <lockcode>-</lockcode>
@@ -260,11 +269,22 @@
         <token></token>
     </myplex>
     <network>
+        <assignment>1</assignment>
         <bandwidth>0</bandwidth>
+        <dns>0.0.0.0</dns>
+        <dnssuffix></dnssuffix>
+        <enc>0</enc>
+        <essid>0.0.0.0</essid>
+        <gateway>0.0.0.0</gateway>
         <httpproxypassword></httpproxypassword>
         <httpproxyport>8080</httpproxyport>
         <httpproxyserver></httpproxyserver>
         <httpproxyusername></httpproxyusername>
+        <interface></interface>
+        <ipaddress>0.0.0.0</ipaddress>
+        <key>0.0.0.0</key>
+        <save></save>
+        <subnet>255.255.255.0</subnet>
         <usehttpproxy>false</usehttpproxy>
     </network>
     <pictures>
@@ -282,9 +302,57 @@
     </plexmediaserver>
     <powermanagement>
         <displaysoff>0</displaysoff>
-        <shutdownstate>0</shutdownstate>
+        <shutdownstate>1</shutdownstate>
         <shutdowntime>0</shutdowntime>
     </powermanagement>
+    <pvrmanager>
+        <backendchannelorder>true</backendchannelorder>
+        <channelmanager></channelmanager>
+        <channelscan></channelscan>
+        <enabled>false</enabled>
+        <hideconnectionlostwarning>false</hideconnectionlostwarning>
+        <resetdb></resetdb>
+        <syncchannelgroups>true</syncchannelgroups>
+        <usebackendchannelnumbers>false</usebackendchannelnumbers>
+    </pvrmanager>
+    <pvrmenu>
+        <closechannelosdonswitch>false</closechannelosdonswitch>
+        <hidevideolength>true</hidevideolength>
+        <iconpath></iconpath>
+        <infoswitch>true</infoswitch>
+        <infotime>5</infotime>
+        <infotimeout>true</infotimeout>
+        <searchicons></searchicons>
+    </pvrmenu>
+    <pvrparental>
+        <duration>300</duration>
+        <enabled>false</enabled>
+        <pin></pin>
+    </pvrparental>
+    <pvrplayback>
+        <channelentrytimeout>0</channelentrytimeout>
+        <playminimized>true</playminimized>
+        <scantime>10</scantime>
+        <signalquality>true</signalquality>
+        <startlast>0</startlast>
+        <switchautoclose>true</switchautoclose>
+    </pvrplayback>
+    <pvrpowermanagement>
+        <backendidletime>15</backendidletime>
+        <dailywakeup>false</dailywakeup>
+        <dailywakeuptime>00:00:00</dailywakeuptime>
+        <enabled>false</enabled>
+        <prewakeup>15</prewakeup>
+        <setwakeupcmd></setwakeupcmd>
+    </pvrpowermanagement>
+    <pvrrecord>
+        <defaultlifetime>99</defaultlifetime>
+        <defaultpriority>50</defaultpriority>
+        <instantrecordtime>120</instantrecordtime>
+        <marginend>10</marginend>
+        <marginstart>2</marginstart>
+        <timernotifications>true</timernotifications>
+    </pvrrecord>
     <scrapers>
         <moviesdefault>metadata.themoviedb.org</moviesdefault>
         <musicvideosdefault>metadata.musicvideos.last.fm</musicvideosdefault>
@@ -350,7 +418,7 @@
         <style>1</style>
     </subtitles>
     <system>
-        <playlistspath pathversion="1">set default</playlistspath>
+        <playlistspath pathversion="1">special://profile/playlists/</playlistspath>
         <uuid>5be5fbfc-721c-441b-950e-acbc2481584e</uuid>
     </system>
     <updates>
@@ -388,7 +456,7 @@
     <videoscreen>
         <guicalibration></guicalibration>
         <haslcd>false</haslcd>
-        <resolution>-1</resolution>
+        <resolution>0</resolution>
         <screenmode>DESKTOP</screenmode>
         <vsync>3</vsync>
     </videoscreen>
@@ -396,5 +464,56 @@
         <height>720</height>
         <width>1280</width>
     </window>
-    <skinsettings />
+    <skinsettings>
+        <setting type="bool" name="skin.mediastream.HomeBladeCentre">false</setting>
+        <setting type="bool" name="skin.mediastream.ShowHomeNPOnLeft">false</setting>
+        <setting type="bool" name="skin.mediastream.ShowSleep">false</setting>
+        <setting type="bool" name="skin.mediastream.ShowShutDown">true</setting>
+        <setting type="bool" name="skin.mediastream.HideVideos">false</setting>
+        <setting type="bool" name="skin.mediastream.HideMusic">false</setting>
+        <setting type="bool" name="skin.mediastream.HidePictures">false</setting>
+        <setting type="bool" name="skin.mediastream.HideDVD">false</setting>
+        <setting type="bool" name="skin.mediastream.HidePrograms">false</setting>
+        <setting type="bool" name="skin.mediastream.HideAppStore">false</setting>
+        <setting type="bool" name="skin.mediastream.HidePower">false</setting>
+        <setting type="bool" name="skin.mediastream.HomeAudioNowPlaying">false</setting>
+        <setting type="bool" name="skin.mediastream.HideNowPlayingMusicInfo">false</setting>
+        <setting type="bool" name="skin.mediastream.Clock">false</setting>
+        <setting type="bool" name="skin.mediastream.HideOptionsMenu">false</setting>
+        <setting type="bool" name="skin.mediastream.ShowAnimMediaPreview">false</setting>
+        <setting type="bool" name="skin.mediastream.HideCustomBGForPictures">false</setting>
+        <setting type="bool" name="skin.mediastream.EnableCustomBGHome">false</setting>
+        <setting type="bool" name="skin.mediastream.HideNoThumbIcon">false</setting>
+        <setting type="bool" name="skin.mediastream.HideInfoInMediaPreview">false</setting>
+        <setting type="bool" name="skin.mediastream.HideWatchedIcons">false</setting>
+        <setting type="bool" name="skin.mediastream.HideFocusDetailForPanel">false</setting>
+        <setting type="bool" name="skin.mediastream.HideOptionMenuThumbs">false</setting>
+        <setting type="bool" name="skin.mediastream.ShowSeasonThumbInEps">false</setting>
+        <setting type="bool" name="skin.mediastream.Developer">false</setting>
+        <setting type="bool" name="skin.mediastream.Developer_Background_Visible">false</setting>
+        <setting type="bool" name="skin.mediastream.HideListViewIcons">false</setting>
+        <setting type="bool" name="skin.mediastream.HidePlotInVideoOSD">false</setting>
+        <setting type="bool" name="skin.mediastream.HideDescriptionInSlideshow">false</setting>
+        <setting type="bool" name="skin.mediastream.HideNowPlayingInViz">false</setting>
+        <setting type="string" name="skin.mediastream.CustomPicturesBG"></setting>
+        <setting type="string" name="skin.mediastream.CustomPicturesBGFolder"></setting>
+        <setting type="string" name="skin.mediastream.CustomVideosBG"></setting>
+        <setting type="string" name="skin.mediastream.CustomVideosBGFolder"></setting>
+        <setting type="string" name="skin.mediastream.CustomMoviesBG"></setting>
+        <setting type="string" name="skin.mediastream.CustomMoviesBGFolder"></setting>
+        <setting type="string" name="skin.mediastream.CustomTVShowsBG"></setting>
+        <setting type="string" name="skin.mediastream.CustomTVShowsBGFolder"></setting>
+        <setting type="string" name="skin.mediastream.CustomMusicBG"></setting>
+        <setting type="string" name="skin.mediastream.CustomMusicBGFolder"></setting>
+        <setting type="string" name="skin.mediastream.CustomProgramsBG"></setting>
+        <setting type="string" name="skin.mediastream.CustomProgramsBGFolder"></setting>
+        <setting type="string" name="skin.mediastream.CustomSystemBG"></setting>
+        <setting type="string" name="skin.mediastream.CustomSystemBGFolder"></setting>
+        <setting type="string" name="skin.mediastream.CustomPowerBG"></setting>
+        <setting type="string" name="skin.mediastream.CustomPowerBGFolder"></setting>
+        <setting type="string" name="skin.mediastream.CustomDVDBG"></setting>
+        <setting type="string" name="skin.mediastream.CustomDVDBGFolder"></setting>
+        <setting type="string" name="skin.mediastream.CustomAMTBG"></setting>
+        <setting type="string" name="skin.mediastream.CustomAMTBGFolder"></setting>
+    </skinsettings>
 </settings>

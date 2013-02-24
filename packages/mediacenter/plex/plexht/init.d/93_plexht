@@ -46,8 +46,10 @@ fi
     sh $AUTOSTART
   fi
 
+#clear update lock to prevent update deadlock
+  [ -f /var/lock/update.lock ] && rm /var/lock/update.lock
 # starting autoupdate
-  [ -f /usr/bin/autoupdate ] && /usr/bin/autoupdate &
+  [ -f /usr/bin/autoupdate ] && /usr/bin/autoupdate &>> /var/log/autoupdate &
 
 # waiting for Xorg to start
   wait_for_xorg
