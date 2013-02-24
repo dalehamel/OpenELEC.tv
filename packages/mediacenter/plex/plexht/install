@@ -80,6 +80,6 @@ cp $PKG_DIR/config/guisettings.xml $INSTALL/usr/share/xbmc/system/
 cp $PKG_DIR/config/guisettings.xml $INSTALL/usr/share/xbmc/
 cp $PKG_DIR/bin/pastebin $INSTALL/usr/bin
 cp $PKG_DIR/bin/pastelog $INSTALL/usr/bin
-chmod +x $INSTALL/usr/bin
+chmod +x $INSTALL/usr/bin/paste*
 
 
