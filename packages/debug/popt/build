@@ -23,11 +23,15 @@
 . config/options $1
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Got oprofile building and I think I added kernel support for it
 echo "Look here dale"
 echo $PKG_BUILD
 echo $TARGET_NAME
 echo $HOST_NAME
 
+<<<<<<< HEAD
 cd $PKG_BUILD
 ./configure  \
         --disable-dependency-tracking \
@@ -38,5 +42,12 @@ cd $PKG_BUILD
 ./configure --host=$TARGET_NAME \
             --build=$HOST_NAME \
 >>>>>>> Initial support for oprofile. Not yet working.
+=======
+cd $PKG_BUILD
+./configure  \
+        --disable-dependency-tracking \
+        --host=$TARGET_NAME \
+        --build=$HOST_NAME \
+>>>>>>> Got oprofile building and I think I added kernel support for it
 	    --prefix=/usr
 make

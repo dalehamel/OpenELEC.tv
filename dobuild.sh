@@ -95,7 +95,7 @@ rm -rf $tmpdir/*
 cp $targetdir/$prefix-RPi.arm-$version.tar.bz2 $tmpdir
 echo "Extracting release tarball..."
 tar -xpjf $tmpdir/$prefix-RPi.arm-$version.tar.bz2 -C $tmpdir
-dd if=/dev/zero of=$outfile bs=1M count=910 
+dd if=/dev/zero of=$outfile bs=1M count=910
 
 
 echo "Creating SD image"
@@ -206,6 +206,7 @@ build
 create_image
 
 if [ "$2" == "--dist" ];then
+    gzip $outfile
     echo "Distributing $prefix-RPi.arm-$version"
     
 

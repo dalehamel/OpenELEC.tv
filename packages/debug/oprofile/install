@@ -24,6 +24,9 @@
 
 mkdir -p $INSTALL/usr/bin
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Got oprofile building and I think I added kernel support for it
 echo "Install dir:"
 cwd=`pwd`
 mkdir -p $INSTALL
@@ -34,9 +37,12 @@ cd $cwd
 cd $PKG_BUILD
 make install
 
+<<<<<<< HEAD
 cd $INSTALLDIR
 ln -s storage root
 
 =======
   cp $PKG_BUILD/strace $INSTALL/usr/bin
 >>>>>>> Initial support for oprofile. Not yet working.
+=======
+>>>>>>> Got oprofile building and I think I added kernel support for it

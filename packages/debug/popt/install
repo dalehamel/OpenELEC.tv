@@ -24,12 +24,16 @@
 
 echo "Install dir:" 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Got oprofile building and I think I added kernel support for it
 cwd=`pwd`
 mkdir -p $INSTALL
 cd $INSTALL
 INSTALLDIR=`pwd`
 echo $INSTALLDIR
 cd $cwd
+<<<<<<< HEAD
 cd $PKG_BUILD
 make install DESTDIR=$INSTALLDIR &> output &
 cat output
@@ -38,3 +42,8 @@ echo $INSTALL
 cd $PKG_BUILD
 make install DESTDIR=$INSTALL
 >>>>>>> Initial support for oprofile. Not yet working.
+=======
+cd $PKG_BUILD
+make install DESTDIR=$INSTALLDIR &> output &
+cat output
+>>>>>>> Got oprofile building and I think I added kernel support for it
