@@ -39,7 +39,7 @@ cd $ABS_PKG_BUILD
 ./configure  \
             --localstatedir=/var \
             --with-kernel-support \
-            --prefix=$SYSTEMDIR/usr \
+            --prefix=$SYSTEMDIR \
             --host=$TARGET_NAME \
             --build=$HOST_NAME \
             --with-extra-includes=$SYSTEMDIR/usr/include \
