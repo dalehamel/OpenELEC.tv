@@ -36,6 +36,9 @@ cd $ABS_PKG_BUILD
 
 
 #https://github.com/nezticle/RaspberryPi-BuildRoot/blob/master/package/oprofile/oprofile.mk
+#http://www.raspberrypi.org/phpBB3/viewtopic.php?f=50&t=9228
+#http://oprofile.sourceforge.net/doc/detailed-parameters.html
+#http://ssvb.github.com/2011/08/23/yet-another-oprofile-tutorial.html
 ./configure  \
             --localstatedir=/var \
             --with-kernel-support \

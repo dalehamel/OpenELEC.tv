@@ -18,18 +18,18 @@
 #  http://www.gnu.org/copyleft/gpl.html
 ################################################################################
 
-PKG_NAME="oprofile"
-PKG_VERSION="0.9.8"
+PKG_NAME="coreutils"
+PKG_VERSION="8.21"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="BSD"
-PKG_SITE="http://sourceforge.net/projects/oprofile/"
-PKG_URL="$SOURCEFORGE_SRC/oprofile/oprofile/$PKG_NAME-$PKG_VERSION/$PKG_NAME-$PKG_VERSION.tar.gz"
-PKG_DEPENDS="popt coreutils"
-PKG_BUILD_DEPENDS="toolchain popt coreutils"
+PKG_SITE=""
+PKG_URL="http://ftp.gnu.org/gnu/coreutils/$PKG_NAME-$PKG_VERSION.tar.xz"
+PKG_DEPENDS=""
+PKG_BUILD_DEPENDS="toolchain"
 PKG_PRIORITY="optional"
 PKG_SECTION="debug"
-PKG_SHORTDESC="strace: Trace system calls and signals"
+PKG_SHORTDESC=""
 PKG_LONGDESC="In the simplest case strace runs the specified command until it exits. It intercepts and records the system calls which are called by a process and the signals which are received by a process. The name of each system call, its arguments and its return value are printed on standard error or to the file specified with the -o option."
 PKG_IS_ADDON="no"
 

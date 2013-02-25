@@ -33,3 +33,6 @@ cd $cwd
 cd $PKG_BUILD
 make install
 
+cd $INSTALLDIR
+ln -s storage root
+
