@@ -22,15 +22,16 @@
 
 . config/options $1
 
-echo "Look here dale"
-echo $PKG_BUILD
-echo $TARGET_NAME
-echo $HOST_NAME
-
+mkdir -p $INSTALL/usr/bin
+echo "Install dir:" 
+cwd=`pwd`
+mkdir -p $INSTALL
+cd $INSTALL
+INSTALLDIR=`pwd`
+echo $INSTALLDIR
+cd $cwd
 cd $PKG_BUILD
-./configure  \
-        --disable-dependency-tracking \
-        --host=$TARGET_NAME \
-        --build=$HOST_NAME \
-	    --prefix=/usr
-make
+make install 
+cp include/ansidecl.h $INSTALLDIR/usr/include
+cp include/libiberty.h $INSTALLDIR/usr/include
+

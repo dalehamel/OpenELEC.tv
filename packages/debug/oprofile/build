@@ -23,8 +23,26 @@
 . config/options $1
 
 cd $PKG_BUILD
+echo "DALE READ ME"
+echo "building oprofile"
 sed -i 's/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/g' configure.ac
-./configure --host=$TARGET_NAME \
-            --build=$HOST_NAME
 
+ABS_PKG_BUILD=`pwd`
+cd "../image/system"
+SYSTEMDIR=`pwd`
+echo "System dir:"
+echo $SYSTEMDIR
+cd $ABS_PKG_BUILD
+
+
+#https://github.com/nezticle/RaspberryPi-BuildRoot/blob/master/package/oprofile/oprofile.mk
+./configure  \
+            --localstatedir=/var \
+            --with-kernel-support \
+            --prefix=$SYSTEMDIR/usr \
+            --host=$TARGET_NAME \
+            --build=$HOST_NAME \
+            --with-extra-includes=$SYSTEMDIR/usr/include \
+            --with-extra-libs=$SYSTEMDIR/usr/lib \
+            --with-binutils=$SYSTEMDIR/usr
 make

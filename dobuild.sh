@@ -24,13 +24,14 @@ rm -rf $tmpdir/*
 cp $targetdir/$prefix-RPi.arm-$version.tar.bz2 $tmpdir
 echo "Extracting release tarball..."
 tar -xpjf $tmpdir/$prefix-RPi.arm-$version.tar.bz2 -C $tmpdir
-dd if=/dev/zero of=$outfile bs=1M count=910 
+dd if=/dev/zero of=$outfile bs=1M count=910
 
 
 echo "Creating SD image"
 cd $tmpdir/$prefix-RPi.arm-$version
 
 if [ "`losetup -f`" != "/dev/loop0" ];then
+    umount /dev/loop0
     losetup -d /dev/loop0  || eval 'echo "It demands loop0 instead of first free loopback device... : (" ; exit 1'
 fi
 
@@ -39,9 +40,9 @@ loopback=`losetup -f`
 ./create_sdcard  $loopback $outfile
 
 echo "Created SD image at $outfile"
-gzip $outfile
 
 if [ "$2" == "--dist" ];then
+    gzip $outfile
     echo "Distributing $prefix-RPi.arm-$version"
     
 

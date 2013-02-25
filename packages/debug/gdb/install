@@ -26,3 +26,7 @@ mkdir -p $INSTALL/usr/bin
   cp $PKG_BUILD/objdir/$1/$1 $INSTALL/usr/bin
   cp $PKG_BUILD/objdir/$1/gdbserver/gdbserver $INSTALL/usr/bin
   cp $PKG_BUILD/objdir/$1/gdbserver/gdbreplay $INSTALL/usr/bin
+  cp $PKG_BUILD/objdir/libiberty/libiberty.a $INSTALL/usr/lib
+  cp $PKG_BUILD/include/libiberty.h $INSTALL/usr/include
+  
+

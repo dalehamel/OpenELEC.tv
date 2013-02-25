@@ -22,15 +22,26 @@
 
 . config/options $1
 
-echo "Look here dale"
-echo $PKG_BUILD
-echo $TARGET_NAME
-echo $HOST_NAME
-
 cd $PKG_BUILD
-./configure  \
-        --disable-dependency-tracking \
-        --host=$TARGET_NAME \
-        --build=$HOST_NAME \
-	    --prefix=/usr
-make
+
+cwd=`pwd`
+TOOLCHAIN_DIR="$(cd `dirname ../../toolchain` && pwd)/toolchain"
+echo $TOOLCHAIN_DIR
+cd $cwd
+
+ABS_PKG_BUILD=`pwd`
+cd "../image/system"
+SYSTEMDIR=`pwd`
+echo "System dir:"
+echo $SYSTEMDIR
+cd $cwd
+
+
+#http://www.linuxfromscratch.org/lfs/view/development/chapter06/binutils.html
+CFLAGS="-Wno-error" ./configure --prefix=$SYSTEMDIR/usr \
+            --host=$TARGET_NAME \
+            --build=$HOST_NAME \
+            --enable-shared 
+#            --with-extra-includes=$SYSTEMDIR/usr/include \
+#            --with-extra-libs=$SYSTEMDIR/usr/lib
+make tooldir=$TOOLCHAIN_DIR

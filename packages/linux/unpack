@@ -53,4 +53,4 @@ sed -i -e "s|^CONFIG_INITRAMFS_SOURCE=.*$|CONFIG_INITRAMFS_SOURCE=\"$ROOT/$BUILD
 # copy some extra firmware to linux tree
   cp -R $PKG_DIR/firmware/* $LINUX/firmware
 
-make -C $LINUX oldconfig
+yes "" | make -C $LINUX oldconfig

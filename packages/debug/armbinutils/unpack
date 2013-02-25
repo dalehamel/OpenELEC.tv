@@ -22,15 +22,8 @@
 
 . config/options $1
 
-echo "Look here dale"
-echo $PKG_BUILD
-echo $TARGET_NAME
-echo $HOST_NAME
-
-cd $PKG_BUILD
-./configure  \
-        --disable-dependency-tracking \
-        --host=$TARGET_NAME \
-        --build=$HOST_NAME \
-	    --prefix=/usr
-make
+# Unpack SRC
+echo "Unpacking in $BUILD"
+cd $BUILD
+tar -xvpf  ../sources/armbinutils/binutils-$PKG_VERSION.tar.gz -C .
+mv binutils-$PKG_VERSION armbinutils-$PKG_VERSION

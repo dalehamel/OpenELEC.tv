@@ -23,6 +23,12 @@
 . config/options $1
 
 echo "Install dir:" 
-echo $INSTALL
+cwd=`pwd`
+mkdir -p $INSTALL
+cd $INSTALL
+INSTALLDIR=`pwd`
+echo $INSTALLDIR
+cd $cwd
 cd $PKG_BUILD
-make install DESTDIR=$INSTALL
+make install DESTDIR=$INSTALLDIR &> output &
+cat output

@@ -23,4 +23,13 @@
 . config/options $1
 
 mkdir -p $INSTALL/usr/bin
-  cp $PKG_BUILD/strace $INSTALL/usr/bin
+echo "Install dir:"
+cwd=`pwd`
+mkdir -p $INSTALL
+cd $INSTALL
+INSTALLDIR=`pwd`
+echo $INSTALLDIR
+cd $cwd
+cd $PKG_BUILD
+make install
+
