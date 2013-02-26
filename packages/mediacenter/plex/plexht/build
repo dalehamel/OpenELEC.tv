@@ -42,14 +42,15 @@ echo $SRC_DIR
 cmake -DCMAKE_TOOLCHAIN_FILE=$CMAKE_CONF \
       -DCMAKE_INSTALL_PREFIX=$INSTALL/usr \
       -DENABLE_PYTHON=on \
-       -DSWIG_EXECUTABLE=$TOOLCHAIN_DIR/bin/swig \
-       -DSWIG_DIR=$TOOLCHAIN_DIR \
+      -DSWIG_EXECUTABLE=$TOOLCHAIN_DIR/bin/swig \
+      -DSWIG_DIR=$TOOLCHAIN_DIR \
       -DLIBUSBDIR=$SYSROOT_PREFIX/usr \
       -DOPTIONAL_INCLUDE_DIR=$SYSROOT_PREFIX/usr/include \
       -DCMAKE_INCLUDE_PATH="$SYSROOT_PREFIX/usr/include/interface/vmcs_host/linux;$SYSROOT_PREFIX/usr/include/interface/vcos/pthreads;$TOOLCHAIN_DIR/armv6zk-openelec-linux-gnueabi/sysroot/usr/include/python2.7/" \
       -DRPI_EXTERNAL_PYTHON_HOME="$TOOLCHAIN_DIR/armv6zk-openelec-linux-gnueabi/sysroot/usr" \
       -DTARGET_PLATFORM=RPI \
+      -DCMAKE_BUILD_TYPE=DEBUG \
       $SRC_DIR
+
 pwd
 make -j1 VERBOSE=1
-

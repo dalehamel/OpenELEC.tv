@@ -24,7 +24,7 @@ rm -rf $tmpdir/*
 cp $targetdir/$prefix-RPi.arm-$version.tar.bz2 $tmpdir
 echo "Extracting release tarball..."
 tar -xpjf $tmpdir/$prefix-RPi.arm-$version.tar.bz2 -C $tmpdir
-dd if=/dev/zero of=$outfile bs=1M count=910
+dd if=/dev/zero of=$outfile bs=1M count=1500
 
 
 echo "Creating SD image"
@@ -42,18 +42,31 @@ loopback=`losetup -f`
 echo "Created SD image at $outfile"
 
 if [ "$2" == "--dist" ];then
+
     gzip $outfile
-    echo "Distributing $prefix-RPi.arm-$version"
-    
 
-    echo "Distributing update image to sourceforge mirror"
-    time scp  $tmpdir/$prefix-RPi.arm-$version.tar.bz2  dalehamel@frs.sourceforge.net:/home/frs/project/rasplex/autoupdate/rasplex/
+    if [ "$3" == "--debug" ];then
+        echo "This is a debug dist"
+        autoupdate_dir=rasplexdev
+    else
+        autoupdate_dir=rasplex
 
-    echo "Setting latest on sourceforge mirror"
-    echo "$prefix-RPi.arm-$version" > latest
-    time scp latest dalehamel@frs.sourceforge.net:/home/frs/project/rasplex/autoupdate/rasplex/
+        echo "Distributing $prefix-RPi.arm-$version"
+
+        echo "Distributing update image to sourceforge mirror"
+        time scp  $tmpdir/$prefix-RPi.arm-$version.tar.bz2  dalehamel@frs.sourceforge.net:/home/frs/project/rasplex/autoupdate/$autoupdate_dir
+
+        echo "Setting latest on sourceforge mirror"
+        echo "$prefix-RPi.arm-$version" > latest
+        time scp latest dalehamel@frs.sourceforge.net:/home/frs/project/rasplex/autoupdate/$autoupdate_dir
 
 
+    fi
+
+    #To do: add proper mirror deployment
+    echo "Copying install archive to S3..."
+    time cp $archive /mnt/plex-rpi
+ 
     echo "Distributing install image to sourceforge mirror"
     time scp $archive dalehamel@frs.sourceforge.net:/home/frs/project/rasplex/release/
 
@@ -61,8 +74,6 @@ if [ "$2" == "--dist" ];then
     echo "http://sourceforge.net/projects/rasplex/files/release/$outname.gz/download" >bleeding
     time scp bleeding dalehamel@frs.sourceforge.net:/home/frs/project/rasplex/release
 
-    echo "Copying install archive to S3..."
-    time cp $archive /mnt/plex-rpi
-    
+   
 
 fi
