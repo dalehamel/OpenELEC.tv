@@ -18,23 +18,19 @@
 #  http://www.gnu.org/copyleft/gpl.html
 ################################################################################
 
-#
-# copy userconfig and samples
-#
-# runlevels: openelec, textmode
+PKG_NAME="popt"
+PKG_VERSION="1.16"
+PKG_REV="1"
+PKG_ARCH="any"
+PKG_LICENSE="BSD"
+PKG_SITE="http://rpm5.org/"
+PKG_URL="http://rpm5.org/files/popt/popt-1.16.tar.gz"
+PKG_DEPENDS=""
+PKG_BUILD_DEPENDS="toolchain"
+PKG_PRIORITY="optional"
+PKG_SECTION="debug"
+PKG_SHORTDESC="strace: Trace system calls and signals"
+PKG_LONGDESC="In the simplest case strace runs the specified command until it exits. It intercepts and records the system calls which are called by a process and the signals which are received by a process. The name of each system call, its arguments and its return value are printed on standard error or to the file specified with the -o option."
+PKG_IS_ADDON="no"
 
-progress "copy system config"
-
-if [ -f /usr/share/xbmc/addons/os.openelec.settings/default_settings.xml ]; then
-  if [ ! -f $HOME/.plexht/userdata/addon_data/os.openelec.settings/settings.xml ]; then
-    mkdir -p $HOME/.plexht/userdata/addon_data/os.openelec.settings
-    cp /usr/share/xbmc/addons/os.openelec.settings/default_settings.xml \
-       $HOME/.plexht/userdata/addon_data/os.openelec.settings/settings.xml
-  fi
-
-fi
-
-if [ ! -f $HOME/.plexht/bootstrapped ];then
-    touch $HOME/.plexht/bootstrapped 
-    cp /usr/share/xbmc/guisettings.xml $HOME/.plexht/userdata/
-fi
+PKG_AUTORECONF="no"

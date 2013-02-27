@@ -1,3 +1,5 @@
+#!/bin/sh
+
 ################################################################################
 #      This file is part of OpenELEC - http://www.openelec.tv
 #      Copyright (C) 2009-2012 Stephan Raue (stephan@openelec.tv)
@@ -18,23 +20,9 @@
 #  http://www.gnu.org/copyleft/gpl.html
 ################################################################################
 
-#
-# copy userconfig and samples
-#
-# runlevels: openelec, textmode
-
-progress "copy system config"
-
-if [ -f /usr/share/xbmc/addons/os.openelec.settings/default_settings.xml ]; then
-  if [ ! -f $HOME/.plexht/userdata/addon_data/os.openelec.settings/settings.xml ]; then
-    mkdir -p $HOME/.plexht/userdata/addon_data/os.openelec.settings
-    cp /usr/share/xbmc/addons/os.openelec.settings/default_settings.xml \
-       $HOME/.plexht/userdata/addon_data/os.openelec.settings/settings.xml
-  fi
-
-fi
-
-if [ ! -f $HOME/.plexht/bootstrapped ];then
-    touch $HOME/.plexht/bootstrapped 
-    cp /usr/share/xbmc/guisettings.xml $HOME/.plexht/userdata/
+if [ -f /sys/class/rtc/rtc0/wakealarm ]; then
+  logger -t setwakeup.sh "### Setting system wakeup time ###"
+  echo 0 > /sys/class/rtc/rtc0/wakealarm
+  echo $1 > /sys/class/rtc/rtc0/wakealarm
+  logger -t setwakeup.sh "### $(cat /proc/driver/rtc) ###"
 fi

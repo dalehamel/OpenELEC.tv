@@ -1,3 +1,5 @@
+#!/bin/sh
+
 ################################################################################
 #      This file is part of OpenELEC - http://www.openelec.tv
 #      Copyright (C) 2009-2012 Stephan Raue (stephan@openelec.tv)
@@ -18,23 +20,10 @@
 #  http://www.gnu.org/copyleft/gpl.html
 ################################################################################
 
-#
-# copy userconfig and samples
-#
-# runlevels: openelec, textmode
+count=0
 
-progress "copy system config"
-
-if [ -f /usr/share/xbmc/addons/os.openelec.settings/default_settings.xml ]; then
-  if [ ! -f $HOME/.plexht/userdata/addon_data/os.openelec.settings/settings.xml ]; then
-    mkdir -p $HOME/.plexht/userdata/addon_data/os.openelec.settings
-    cp /usr/share/xbmc/addons/os.openelec.settings/default_settings.xml \
-       $HOME/.plexht/userdata/addon_data/os.openelec.settings/settings.xml
-  fi
-
-fi
-
-if [ ! -f $HOME/.plexht/bootstrapped ];then
-    touch $HOME/.plexht/bootstrapped 
-    cp /usr/share/xbmc/guisettings.xml $HOME/.plexht/userdata/
-fi
+while [ $(pidof xbmc.bin) -a $count -le 20 ]; do
+  usleep 250000
+  logger -t wait_on_xbmc_exit "### Waiting for XBMC to Exit - $count ###"
+  count=$((count+1))
+done

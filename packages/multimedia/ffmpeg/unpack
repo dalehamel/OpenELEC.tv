@@ -1,0 +1,12 @@
+#!/bin/sh
+
+. config/options $1
+
+# Unpack SRC
+cd $BUILD
+echo "Unzipping"
+unzip -d $PKG_NAME-$PKG_VERSION -o ../sources/plexht/rasplex-openelec.zip
+echo "done"
+mv $PKG_NAME-$PKG_VERSION/plex-home-theatre-rasplex-openelec/lib/ffmpeg/* $PKG_NAME-$PKG_VERSION
+rm -r $PKG_NAME-$PKG_VERSION/plex-home-theatre-rasplex-openelec
+

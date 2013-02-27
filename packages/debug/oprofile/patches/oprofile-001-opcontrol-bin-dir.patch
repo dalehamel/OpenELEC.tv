@@ -1,0 +1,11 @@
+--- a/utils/opcontrol	2013-02-25 01:47:11.439716392 -0600
++++ b/utils/opcontrol	2013-02-25 01:48:47.769727231 -0600
+@@ -2230,7 +2230,7 @@
+ 
+ # determine the location of opcontrol and related programs
+ if test -z "$OPDIR"; then
+-	BINDIR="/usr/bin"
++	BINDIR="/bin"
+ 	OPCONTROL=`$BINDIR/which $0`
+ 	OPDIR=`$BINDIR/dirname $OPCONTROL`
+ fi

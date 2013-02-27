@@ -1,3 +1,5 @@
+#!/bin/sh
+
 ################################################################################
 #      This file is part of OpenELEC - http://www.openelec.tv
 #      Copyright (C) 2009-2012 Stephan Raue (stephan@openelec.tv)
@@ -18,23 +20,32 @@
 #  http://www.gnu.org/copyleft/gpl.html
 ################################################################################
 
-#
-# copy userconfig and samples
-#
-# runlevels: openelec, textmode
+. config/options $1
 
-progress "copy system config"
+cd $PKG_BUILD
+echo "DALE READ ME"
+echo "building oprofile"
+sed -i 's/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/g' configure.ac
 
-if [ -f /usr/share/xbmc/addons/os.openelec.settings/default_settings.xml ]; then
-  if [ ! -f $HOME/.plexht/userdata/addon_data/os.openelec.settings/settings.xml ]; then
-    mkdir -p $HOME/.plexht/userdata/addon_data/os.openelec.settings
-    cp /usr/share/xbmc/addons/os.openelec.settings/default_settings.xml \
-       $HOME/.plexht/userdata/addon_data/os.openelec.settings/settings.xml
-  fi
+ABS_PKG_BUILD=`pwd`
+cd "../image/system"
+SYSTEMDIR=`pwd`
+echo "System dir:"
+echo $SYSTEMDIR
+cd $ABS_PKG_BUILD
 
-fi
 
-if [ ! -f $HOME/.plexht/bootstrapped ];then
-    touch $HOME/.plexht/bootstrapped 
-    cp /usr/share/xbmc/guisettings.xml $HOME/.plexht/userdata/
-fi
+#https://github.com/nezticle/RaspberryPi-BuildRoot/blob/master/package/oprofile/oprofile.mk
+#http://www.raspberrypi.org/phpBB3/viewtopic.php?f=50&t=9228
+#http://oprofile.sourceforge.net/doc/detailed-parameters.html
+#http://ssvb.github.com/2011/08/23/yet-another-oprofile-tutorial.html
+./configure  \
+            --localstatedir=/var \
+            --with-kernel-support \
+            --prefix=$SYSTEMDIR \
+            --host=$TARGET_NAME \
+            --build=$HOST_NAME \
+            --with-extra-includes=$SYSTEMDIR/usr/include \
+            --with-extra-libs=$SYSTEMDIR/usr/lib \
+            --with-binutils=$SYSTEMDIR/usr
+make

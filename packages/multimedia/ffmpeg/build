@@ -53,12 +53,6 @@ else
   FFMPEG_VDPAU="--disable-vdpau"
 fi
 
-if [ "$XVBA" = yes ]; then
-  FFMPEG_XVBA="--enable-xvba"
-else
-  FFMPEG_XVBA="--disable-xvba"
-fi
-
 case "$TARGET_ARCH" in
   arm)
       FFMPEG_CPU=""

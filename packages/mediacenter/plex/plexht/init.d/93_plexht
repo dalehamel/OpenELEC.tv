@@ -34,7 +34,7 @@ if grep -q "Vendor=0471 Product=20d9" /proc/bus/input/devices; then
 fi
 
 # hack: make addon-bins executable
-  chmod +x /storage/.xbmc/addons/*/bin/* > /dev/null 2>&1
+#  chmod +x /storage/.xbmc/addons/*/bin/* > /dev/null 2>&1
 
 # starting autostart script (will be removed later again, dont use it!!!)
   AUTOSTART="/storage/.config/autostart.sh"
@@ -46,8 +46,10 @@ fi
     sh $AUTOSTART
   fi
 
+#clear update lock to prevent update deadlock
+  [ -f /var/lock/update.lock ] && rm /var/lock/update.lock
 # starting autoupdate
-  [ -f /usr/bin/autoupdate ] && /usr/bin/autoupdate &
+  [ -f /usr/bin/autoupdate ] && /usr/bin/autoupdate &>> /var/log/autoupdate &
 
 # waiting for Xorg to start
   wait_for_xorg
@@ -71,7 +73,7 @@ fi
       usleep 250000
     done
 
-    XBMC_HOME=/usr/share/XBMC /usr/bin/plexhometheater $XBMC_ARGS > /dev/null 2>&1
+    XBMC_HOME=/usr/share/xbmc /usr/lib/plexhometheater/plexhometheater $XBMC_ARGS > /dev/null 2>&1
     RET=$?
 
     case "$RET" in
