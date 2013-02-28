@@ -50,5 +50,3 @@ mkdir -p $INSTALL/etc
 
 mkdir -p $INSTALL/etc/pm/sleep.d
   cp $PKG_DIR/sleep.d/* $INSTALL/etc/pm/sleep.d
-
-  cp $PKG_DIR/config/update.conf $INSTALL/etc
