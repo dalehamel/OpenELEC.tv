@@ -58,7 +58,7 @@ send_message () {
   which xbmc-send
   if [ $? -eq 0 ]
   then
-    xbmc-send --host=127.0.0.1 -a "Notification(Automatic update service:,$1,20000)"
+    xbmc-send --host=127.0.0.1 --port=9778 -a "Notification(Automatic update service:,$1,20000)"
   else
     logger "Automatic update service: $1"
   fi
