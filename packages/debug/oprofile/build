@@ -47,5 +47,6 @@ cd $ABS_PKG_BUILD
             --build=$HOST_NAME \
             --with-extra-includes=$SYSTEMDIR/usr/include \
             --with-extra-libs=$SYSTEMDIR/usr/lib \
-            --with-binutils=$SYSTEMDIR/usr
+            --with-binutils=$SYSTEMDIR/usr \
+            --enable-gui=no
 make
