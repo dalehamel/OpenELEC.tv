@@ -22,6 +22,10 @@
 #
 # runlevels: openelec
 
+XBMC_BIN=/usr/lib/plexhometheater/plexhometheater
+XBMC_HOME_PATH=/usr/share/xbmc
+PHT_DEBUG_PATH=/storage/debug/plexht
+PHT_DEBUG_HOME_PATH="$PHT_DEBUG_PATH/xbmc"
 LIRCDEV="/var/run/lirc/lircd"
 [ -e /var/run/lirc/lircd.irtrans ] && LIRCDEV="/var/run/lirc/lircd.irtrans"
 XBMC_ARGS="--standalone -fs --lircdev $LIRCDEV --debug"
@@ -73,7 +77,14 @@ fi
       usleep 250000
     done
 
-    XBMC_HOME=/usr/share/xbmc /usr/lib/plexhometheater/plexhometheater $XBMC_ARGS > /dev/null 2>&1
+    if [ -f "$PHT_DEBUG_PATH/plexhometheater" ]; then
+      XBMC_BIN="$PHT_DEBUG_PATH/plexhometheater"
+    fi
+    if [ -f "$PHT_DEBUG_HOME_PATH" ]; then
+      XBMC_HOME_PATH="$PHT_DEBUG_HOME_PATH"
+    fi
+    
+    XBMC_HOME="$XBMC_HOME_PATH" "$XBMC_BIN" $XBMC_ARGS > /dev/null 2>&1
     RET=$?
 
     case "$RET" in
