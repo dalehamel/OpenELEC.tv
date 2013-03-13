@@ -22,8 +22,8 @@
 #
 # runlevels: openelec
 
-XBMC_BIN=/usr/lib/plexhometheater/plexhometheater
-XBMC_HOME_PATH=/usr/share/xbmc
+XBMC_BIN_BUILTIN=/usr/lib/plexhometheater/plexhometheater
+XBMC_HOME_PATH_BUILTIN=/usr/share/xbmc
 PHT_DEBUG_PATH=$HOME/debug/plexht
 PHT_DEBUG_HOME_PATH="$PHT_DEBUG_PATH/xbmc"
 LIRCDEV="/var/run/lirc/lircd"
@@ -79,9 +79,13 @@ fi
 
     if [ -f "$PHT_DEBUG_PATH/plexhometheater" ]; then
       XBMC_BIN="$PHT_DEBUG_PATH/plexhometheater"
+    else
+      XBMC_BIN="$XBMC_BIN_BUILTIN"
     fi
     if [ -f "$PHT_DEBUG_HOME_PATH" ]; then
       XBMC_HOME_PATH="$PHT_DEBUG_HOME_PATH"
+    else
+      XBMC_HOME_PATH="XBMC_HOME_PATH_BUILTIN"
     fi
     
     XBMC_HOME="$XBMC_HOME_PATH" "$XBMC_BIN" $XBMC_ARGS > /dev/null 2>&1
