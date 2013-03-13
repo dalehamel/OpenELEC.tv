@@ -33,8 +33,8 @@ fi
 
 if [ -f /etc/repo.conf ]; then
   . /etc/repo.conf
-  if [ -f /storage/.autoupdate/repo.conf ]; then
-    . /storage/.autoupdate/repo.conf  
+  if [ -f $HOME/.config/autoupdate/repo.conf ]; then
+    . $HOME/.config/autoupdate/repo.conf  
   fi
   if [ -n "$KEYFILE" ]; then
     SCP_ARG="-i $KEYFILE"

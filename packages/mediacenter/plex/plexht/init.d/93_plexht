@@ -24,7 +24,7 @@
 
 XBMC_BIN=/usr/lib/plexhometheater/plexhometheater
 XBMC_HOME_PATH=/usr/share/xbmc
-PHT_DEBUG_PATH=/storage/debug/plexht
+PHT_DEBUG_PATH=$HOME/debug/plexht
 PHT_DEBUG_HOME_PATH="$PHT_DEBUG_PATH/xbmc"
 LIRCDEV="/var/run/lirc/lircd"
 [ -e /var/run/lirc/lircd.irtrans ] && LIRCDEV="/var/run/lirc/lircd.irtrans"
