@@ -85,7 +85,7 @@ fi
     if [ -f "$PHT_DEBUG_HOME_PATH" ]; then
       XBMC_HOME_PATH="$PHT_DEBUG_HOME_PATH"
     else
-      XBMC_HOME_PATH="XBMC_HOME_PATH_BUILTIN"
+      XBMC_HOME_PATH="$XBMC_HOME_PATH_BUILTIN"
     fi
     
     XBMC_HOME="$XBMC_HOME_PATH" "$XBMC_BIN" $XBMC_ARGS > /dev/null 2>&1
