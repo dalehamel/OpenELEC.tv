@@ -2,7 +2,7 @@
   OPENELEC_VERSION="3.0.0"
 
 # RASPLEX_VERSION: The version of rasplex
-  RASPLEX_VERSION="0.1.20"
+  RASPLEX_VERSION="0.1.30"
 
 # OS_VERSION: OS Version
   OS_VERSION="3.0"

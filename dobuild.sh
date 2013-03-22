@@ -56,7 +56,7 @@ while true; do
             sourceforge=1
             ;;
         --user)
-            user=1
+            user=dalehamel
             ;;
         --force-pht-rebuild)
             force_pht_rebuild=1

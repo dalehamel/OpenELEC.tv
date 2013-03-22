@@ -106,12 +106,10 @@
 
 
 
-#arm_freq=900
 arm_freq=800
-core_freq=450
+core_freq=350
 sdram_freq=450
-#force_turbo=1
-#disable_overscan=1
+over_voltage=0
 hdmi_force_hotplug=1
 hdmi_drive=2
 gpu_mem_256=128
