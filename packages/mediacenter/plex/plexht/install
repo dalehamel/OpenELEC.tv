@@ -41,7 +41,13 @@ find build/lib -not \( -name CMakeFiles -prune \) \
     -iregex ".*-linux.*|.*-arm.*|.*\.vis|.*\.xbs" \
     -exec cp "{}" $ROOT/$INSTALL/usr/lib/plexhometheater/system/ ";"
 
-find addons language media sounds userdata system \
+  find system addons \
+    -regextype posix-extended -type f \
+    -not -iregex ".*svn.*|.*win32(dx)?\.vis|.*osx\.vis" \
+    -iregex ".*-linux.*|.*-arm.*|.*\.vis|.*\.xbs" \
+    -exec install -D "{}" $ROOT/$INSTALL/usr/lib/plexhometheater/"{}" ";"
+  
+  find addons language media sounds userdata system \
     -regextype posix-extended -type f \
     -not -iregex ".*-linux.*|.*-arm.*|.*\.vis|.*\.xbs|.*svn.*|.*\.orig|.*\.so|.*\.dll|.*\.pyd|.*python|.*\.zlib|.*\.conf" \
     -exec install -D -m 0644 "{}" $ROOT/$INSTALL/usr/share/xbmc/"{}" ";"
