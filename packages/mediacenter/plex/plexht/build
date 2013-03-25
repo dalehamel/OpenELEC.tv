@@ -30,6 +30,12 @@ SRC_DIR=`pwd`
 cd build 
 [ -f Makefile ] && rm -rf *
 
+if [ "$DEBUG" = yes ]; then
+      CMAKE_BUILD_TYPE="DEBUG"
+else
+      CMAKE_BUILD_TYPE="RELEASE"
+fi
+
 
 MAKEFLAGS=-j1
 strip_lto
