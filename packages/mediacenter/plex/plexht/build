@@ -30,6 +30,12 @@ SRC_DIR=`pwd`
 cd build 
 [ -f Makefile ] && rm -rf *
 
+if [ "$DEBUG" = yes ]; then
+      CMAKE_BUILD_TYPE="DEBUG"
+else
+      CMAKE_BUILD_TYPE="RELEASE"
+fi
+
 
 MAKEFLAGS=-j1
 strip_lto
@@ -49,7 +55,7 @@ cmake -DCMAKE_TOOLCHAIN_FILE=$CMAKE_CONF \
       -DCMAKE_INCLUDE_PATH="$SYSROOT_PREFIX/usr/include/interface/vmcs_host/linux;$SYSROOT_PREFIX/usr/include/interface/vcos/pthreads;$TOOLCHAIN_DIR/armv6zk-openelec-linux-gnueabi/sysroot/usr/include/python2.7/" \
       -DRPI_EXTERNAL_PYTHON_HOME="$TOOLCHAIN_DIR/armv6zk-openelec-linux-gnueabi/sysroot/usr" \
       -DTARGET_PLATFORM=RPI \
-      -DCMAKE_BUILD_TYPE=DEBUG \
+      -DCMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE \
       $SRC_DIR
 
 pwd
