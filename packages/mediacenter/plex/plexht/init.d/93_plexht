@@ -28,7 +28,7 @@ PHT_DEBUG_PATH=$HOME/debug/plexht
 PHT_DEBUG_HOME_PATH="$PHT_DEBUG_PATH/xbmc"
 LIRCDEV="/var/run/lirc/lircd"
 [ -e /var/run/lirc/lircd.irtrans ] && LIRCDEV="/var/run/lirc/lircd.irtrans"
-XBMC_ARGS="--standalone -fs --lircdev $LIRCDEV --debug"
+XBMC_ARGS="--standalone -fs --lircdev $LIRCDEV"
 
 progress "starting XBMC"
 
