@@ -20,7 +20,7 @@
   <nofliptimeout>0</nofliptimeout>
  </gui>
   <bginfoloadermaxthreads>2</bginfoloadermaxthreads>
-  <destroywindowcontrols>false</destroywindowcontrols>A
+  <destroywindowcontrols>false</destroywindowcontrols>
   <useddsfanart>false</useddsfanart>
 </advancedsettings>
 
