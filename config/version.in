@@ -1,5 +1,5 @@
 # VERSION: set full version, use "devel" for development version
-  OPENELEC_VERSION="2.99.2"
+  OPENELEC_VERSION="3.0.0"
 
 # RASPLEX_VERSION: The version of rasplex
   RASPLEX_VERSION="SET_RASPLEXVERSION"
