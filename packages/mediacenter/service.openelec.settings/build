@@ -22,7 +22,9 @@
 
 . config/options $1
 
-mkdir -p $INSTALL/usr/share/xbmc/addons/os.openelec.settings
-  cp -R $PKG_DIR/source/* $INSTALL/usr/share/xbmc/addons/os.openelec.settings
-  cp -R $PKG_DIR/config/* $INSTALL/usr/share/xbmc/addons/os.openelec.settings
-  $SED "s|@OS_VERSION@|$OS_VERSION|g" -i $INSTALL/usr/share/xbmc/addons/os.openelec.settings/addon.xml
+cd $PKG_BUILD
+  python -Wi -t -B $ROOT/$TOOLCHAIN/lib/python2.7/compileall.py ./resources/lib/ -f
+  rm -rf `find ./resources/lib/ -name "*.py"`
+
+  python -Wi -t -B $ROOT/$TOOLCHAIN/lib/python2.7/compileall.py ./oe.py -f
+  rm -rf ./oe.py
