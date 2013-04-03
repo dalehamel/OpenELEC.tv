@@ -37,6 +37,15 @@ if grep -q "Vendor=0471 Product=20d9" /proc/bus/input/devices; then
   export SDL_MOUSE_RELATIVE=0
 fi
 
+if [ ! -f $HOME/.plexht/bootstrapped ];then
+    [ ! -d $HOME/.plexht/userdata ] && mkdir -p $HOME/.plexht/userdata
+    touch $HOME/.plexht/bootstrapped
+    cp /usr/share/xbmc/guisettings.xml $HOME/.plexht/userdata/
+    cp /usr/share/xbmc/advancedsettings.xml $HOME/.plexht/userdata/
+fi
+
+
+
 # hack: make addon-bins executable
 #  chmod +x /storage/.xbmc/addons/*/bin/* > /dev/null 2>&1
 

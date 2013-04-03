@@ -22,8 +22,11 @@
 
 . config/options $1
 
-ZIP_PKG="`echo $PKG_URL | sed 's%.*/\(.*\)$%\1%'`"
+#ZIP_PKG="`echo $PKG_URL | sed 's%.*/\(.*\)$%\1%'`"
+ZIP_PKG="master.zip"
 [ -d $PKG_BUILD ] && rm -rf $PKG_BUILD
 
 mkdir -p $BUILD/${PKG_NAME}-${PKG_VERSION}
-  unzip $SOURCES/$1/$ZIP_PKG -d $BUILD/${PKG_NAME}-${PKG_VERSION} >/dev/null 2>&1
+  unzip $SOURCES/$1/$ZIP_PKG 
+  mv rasplex-settings-master/* $BUILD/${PKG_NAME}-${PKG_VERSION} 
+

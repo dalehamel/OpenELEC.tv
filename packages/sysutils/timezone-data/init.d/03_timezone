@@ -38,7 +38,3 @@ if [ -f /usr/share/xbmc/addons/os.openelec.settings/default_settings.xml ]; then
 
 fi
 
-if [ ! -f $HOME/.plexht/bootstrapped ];then
-    touch $HOME/.plexht/bootstrapped 
-    cp /usr/share/xbmc/guisettings.xml $HOME/.plexht/userdata/
-fi

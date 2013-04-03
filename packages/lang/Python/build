@@ -40,7 +40,7 @@ ac_cv_buggy_getaddrinfo=no \
              --enable-shared \
              --with-threads \
              --enable-unicode=ucs4 \
-             --enable-ipv6 \
+             --disable-ipv6 \
              --disable-profiling \
              --without-pydebug \
              --without-doc-strings \
