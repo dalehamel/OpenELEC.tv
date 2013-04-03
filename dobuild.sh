@@ -56,7 +56,12 @@ while true; do
             sourceforge=1
             ;;
         --user)
-            user=1
+            shift
+            if [ -z $1 ]; then
+                echo "user parameter missing!"
+                exit 1
+            fi
+            user="$1"
             ;;
         --force-pht-rebuild)
             force_pht_rebuild=1
