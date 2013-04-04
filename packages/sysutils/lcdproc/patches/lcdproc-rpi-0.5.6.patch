@@ -1,0 +1,494 @@
+diff -u -N -X /tmp/diff.exclude -r lcdproc-0.5.6-old/acinclude.m4 lcdproc-0.5.6-new/acinclude.m4
+--- lcdproc-0.5.6-old/acinclude.m4	2012-09-01 15:34:24.000000000 -0600
++++ lcdproc-0.5.6-new/acinclude.m4	2013-03-31 18:54:40.181788129 -0600
+@@ -228,6 +228,9 @@
+ 			if test "$x_ac_have_i2c" = yes; then
+ 				HD44780_DRIVERS="$HD44780_DRIVERS hd44780-hd44780-i2c.o"
+ 			fi
++			dnl The hd4470-rpi driver only works on a Raspberry Pi,
++			dnl so we should really have some checks for ARM support.
++				HD44780_DRIVERS="$HD44780_DRIVERS hd44780-hd44780-rpi.o"
+ 			DRIVERS="$DRIVERS hd44780${SO}"
+ 			actdrivers=["$actdrivers hd44780"]
+ 			;;
+diff -u -N -X /tmp/diff.exclude -r lcdproc-0.5.6-old/configure.in lcdproc-0.5.6-new/configure.in
+--- lcdproc-0.5.6-old/configure.in	2012-11-04 03:41:16.000000000 -0700
++++ lcdproc-0.5.6-new/configure.in	2013-03-31 18:54:40.181788129 -0600
+@@ -3,8 +3,10 @@
+ AC_PREREQ(2.61)
+ AC_INIT([lcdproc], [0.5.6], [lcdproc@lists.omnipotent.net])
+ AC_CONFIG_SRCDIR([clients/lcdproc/batt.c])
++AC_CANONICAL_TARGET
+ AM_INIT_AUTOMAKE
+ 
++AC_CANONICAL_BUILD
+ AC_CONFIG_HEADERS(config.h)
+ 
+ AC_CANONICAL_HOST
+diff -u -N -X /tmp/diff.exclude -r lcdproc-0.5.6-old/server/drivers/Makefile.am lcdproc-0.5.6-new/server/drivers/Makefile.am
+--- lcdproc-0.5.6-old/server/drivers/Makefile.am	2012-08-19 08:29:08.000000000 -0600
++++ lcdproc-0.5.6-new/server/drivers/Makefile.am	2013-03-31 18:54:40.182789110 -0600
+@@ -96,6 +96,6 @@
+ glcdlib_SOURCES =    lcd.h lcd_lib.h glcdlib.h glcdlib.c report.h
+ glk_SOURCES =        lcd.h glk.c glk.h glkproto.c glkproto.h report.h
+-EXTRA_hd44780_SOURCES = hd44780-4bit.c hd44780-4bit.h hd44780-ext8bit.c hd44780-ext8bit.h lcd_sem.c lcd_sem.h hd44780-serialLpt.c hd44780-serialLpt.h hd44780-serial.c hd44780-serial.h hd44780-winamp.c hd44780-winamp.h hd44780-bwct-usb.c hd44780-bwct-usb.h hd44780-lcd2usb.c hd44780-lcd2usb.h hd44780-usbtiny.c hd44780-usbtiny.h hd44780-lis2.c hd44780-lis2.h hd44780-i2c.c hd44780-i2c.h hd44780-ftdi.c hd44780-ftdi.h hd44780-ethlcd.c hd44780-ethlcd.h hd44780-uss720.c hd44780-uss720.h hd44780-usblcd.c hd44780-usblcd.h hd44780-usb4all.c hd44780-usb4all.h hd44780-i2c-piplate.c hd44780-i2c-piplate.h port.h lpt-port.h timing.h
++EXTRA_hd44780_SOURCES = hd44780-4bit.c hd44780-4bit.h hd44780-ext8bit.c hd44780-ext8bit.h lcd_sem.c lcd_sem.h hd44780-serialLpt.c hd44780-serialLpt.h hd44780-serial.c hd44780-serial.h hd44780-winamp.c hd44780-winamp.h hd44780-bwct-usb.c hd44780-bwct-usb.h hd44780-lcd2usb.c hd44780-lcd2usb.h hd44780-usbtiny.c hd44780-usbtiny.h hd44780-lis2.c hd44780-lis2.h hd44780-i2c.c hd44780-i2c.h hd44780-ftdi.c hd44780-ftdi.h hd44780-ethlcd.c hd44780-ethlcd.h hd44780-uss720.c hd44780-uss720.h hd44780-usblcd.c hd44780-usblcd.h hd44780-usb4all.c hd44780-usb4all.h hd44780-i2c-piplate.c hd44780-i2c-piplate.h port.h hd44780-rpi.c hd44780-rpi.h lpt-port.h timing.h
+ hd44780_SOURCES =    lcd.h lcd_lib.h hd44780.h hd44780.c hd44780-drivers.h hd44780-low.h hd44780-charmap.h report.h adv_bignum.h
+ i2500vfd_SOURCES =   lcd.h i2500vfd.c i2500vfd.h glcd_font5x8.h report.h
+ icp_a106_SOURCES =   lcd.h lcd_lib.h icp_a106.c icp_a106.h report.h
+diff -u -N -X /tmp/diff.exclude -r lcdproc-0.5.6-old/server/drivers/hd44780-drivers.h lcdproc-0.5.6-new/server/drivers/hd44780-drivers.h
+--- lcdproc-0.5.6-old/server/drivers/hd44780-drivers.h	2012-08-19 08:29:08.000000000 -0600
++++ lcdproc-0.5.6-new/server/drivers/hd44780-drivers.h	2013-03-31 18:54:40.183788177 -0600
+@@ -17,6 +17,9 @@
+ # include "hd44780-serialLpt.h"
+ # include "hd44780-winamp.h"
+ #endif
++#ifdef __ARMEL__
++# include "hd44780-rpi.h"
++#endif
+ #include "hd44780-serial.h"
+ #include "hd44780-lis2.h"
+ #ifdef HAVE_LIBUSB
+@@ -82,6 +85,9 @@
+ #ifdef WITH_ETHLCD
+ 	{ "ethlcd",        HD44780_CT_ETHLCD,        IF_TYPE_TCP,     hd_init_ethlcd    },
+ #endif
++#ifdef __ARMEL__
++	{ "rpi",           HD44780_CT_4BIT,         IF_TYPE_PARPORT,  hd_init_rpi       },
++#endif
+ 	/* add new connection types in the correct section above or here */
+ 
+ 	/* default, end of structure element (do not delete) */
+diff -u -N -X /tmp/diff.exclude -r lcdproc-0.5.6-old/server/drivers/hd44780-low.h lcdproc-0.5.6-new/server/drivers/hd44780-low.h
+--- lcdproc-0.5.6-old/server/drivers/hd44780-low.h	2012-08-19 08:29:08.000000000 -0600
++++ lcdproc-0.5.6-new/server/drivers/hd44780-low.h	2013-03-31 18:54:40.184786181 -0600
+@@ -29,6 +29,10 @@
+ # include <ftdi.h>
+ #endif
+ 
++#ifdef __ARMEL__
++#  include "hd44780-rpi.h"
++#endif
++
+ /** \name Symbolic names for connection types
+  *@{*/
+ #define HD44780_CT_UNKNOWN		0
+@@ -119,7 +123,6 @@
+ 	int use_count;		/**< Number of currently used bytes */
+ } tx_buffer;
+ 
+-
+ /** private data for the \c hd44780 driver */
+ typedef struct hd44780_private_data {
+ 	/* parallel connection types */
+@@ -154,6 +157,10 @@
+ 	int sock;		/**< socket for TCP devices */
+ #endif
+ 
++#ifdef __ARMEL__
++	struct rpi_gpio_map *rpi_gpio;
++#endif
++
+ 	int charmap;		/**< index of currently used charmap */
+ 
+ 	int width, height;	/**< size of display (characters) */
+diff -u -N -X /tmp/diff.exclude -r lcdproc-0.5.6-old/server/drivers/hd44780-rpi.c lcdproc-0.5.6-new/server/drivers/hd44780-rpi.c
+--- lcdproc-0.5.6-old/server/drivers/hd44780-rpi.c	1969-12-31 17:00:00.000000000 -0700
++++ lcdproc-0.5.6-new/server/drivers/hd44780-rpi.c	2013-03-31 18:54:40.186793246 -0600
+@@ -0,0 +1,360 @@
++/** \file server/drivers/hd44780-rpi.c
++ * \c 4bit connection type of \c hd44780 driver for Hitachi HD44780 based LCD displays.
++ *
++ * The LCD is operated in its 4 bit-mode to be connected to the gpio pins on the Raspberry Pi.
++ */
++
++/** Copyright (c) 2012 Paul Corner <paul_c@users.sourceforge.net>
++ *		  2000, 1999, 1995 Benjamin Tse <blt@Comports.com>
++ *		  2001 Joris Robijn <joris@robijn.net>
++ *		  1999 Andrew McMeikan <andrewm@engineer.com>
++ *		  1998 Richard Rognlie <rrognlie@gamerz.net>
++ *		  1997 Matthias Prinke <m.prinke@trashcan.mcnet.de>
++ *
++ * Based in part on the hd44780-4bit driver and comments/notes/code provided
++ * by Serac (RaspberryPi forum user)
++ *
++ * This file is released under the GNU General Public License. Refer to the
++ * COPYING file distributed with this package.
++ */
++
++/**
++ * The code to access the gpio on a Raspberry Pi draws on an
++ * example program dated 15-January-2012 by Dom and Gert van Loo:
++ * How to access GPIO registers from C-code on the Raspberry-Pi
++
++ * The default connections are:
++ * header (gpio)  LCD
++ * P1-12 (18)	  D7 (14)
++ * P1-16 (23)	  D6 (13)
++ * P1-18 (24)	  D5 (12)
++ * P1-22 (25)	  D4 (11)
++ * P1-24 (8)	  EN (6)
++ * P1-26 (7)	  RS (4)
++ * P5-3 (28)	  BL (backlight optional - See documentation)
++ *
++ * Mappings can be set in the config file using the key-words:
++ * ENABLE, RS, D7, D6, D5, D4, BL in the [HD44780] section.
++*/
++
++#define D7 18
++#define D6 23
++#define D5 24
++#define D4 25
++#define RS 7
++#define EN 8
++#define BL 28
++
++/**
++ *
++ * RW (5) on the LCD MUST be hard wired low to prevent 5V logic appearing
++ * on the gpio pins.
++ *
++ * Only a single LCD is currently supported - That may change along with
++ * i2c connected devices.
++ */
++
++
++#include "hd44780-rpi.h"
++#include "hd44780-low.h"
++#include "port.h"
++#include "report.h"
++
++#include <stdio.h>
++#include <string.h>
++#include <stdlib.h>
++#include <errno.h>
++#include <dirent.h>
++#include <fcntl.h>
++#include <assert.h>
++#include <sys/mman.h>
++#include <sys/types.h>
++#include <sys/stat.h>
++#include <unistd.h>
++
++// Generally, any function that accesses the LCD control lines needs to be
++// implemented separately for each HW design. This is typically (but not
++// restricted to):
++// HD44780_senddata
++// HD44780_readkeypad
++
++void lcdrpi_HD44780_senddata(PrivateData *p, unsigned char displayID, unsigned char flags, unsigned char ch);
++
++// To be implemented at some point if required..
++void lcdrpi_HD44780_backlight(PrivateData *p, unsigned char state);
++unsigned char lcdrpi_HD44780_readkeypad(PrivateData *p, unsigned int YData);
++
++static volatile unsigned int *gpio_map = NULL;
++
++static int setup_io(Driver *drvthis)
++{
++	void *gpio_mem;
++	int  mem_fd = 0;
++	/* open /dev/mem */
++	if (gpio_map != NULL) {
++		report(RPT_ERR, "IO already in use.");
++		return -1;
++	}
++	if ((mem_fd = open("/dev/mem", O_RDWR|O_SYNC) ) < 0) {
++		report(RPT_ERR, "can not open /dev/mem");
++		return -1;
++	}
++
++	if ((gpio_mem = malloc(BLOCK_SIZE + (PAGE_SIZE-1))) == NULL) {
++		report(RPT_ERR, "memory allocation error");
++		return -1;
++	}
++
++	if ((unsigned int)gpio_mem % PAGE_SIZE)
++		gpio_mem += PAGE_SIZE - ((unsigned int)gpio_mem % PAGE_SIZE);
++
++	gpio_map = (unsigned int *)mmap((caddr_t)gpio_mem,
++			BLOCK_SIZE, PROT_READ|PROT_WRITE,
++			MAP_SHARED|MAP_FIXED, mem_fd, GPIO_BASE);
++
++	if ((long)gpio_map < 0) {
++		report(RPT_ERR, "mmap error %d", (int)gpio_map);
++		return -1;
++	}
++	close(mem_fd); // Done with mem_fd and don't need to use it again.
++
++    return 0;
++}
++
++	/* Rev 1 boards, gpio pins 2, 3, 5, 27 available on S5 */
++	/* Rev 2 boards, gpio pins 0, 1, 5, 21 available on S5 */
++static const int gpio_pins[] = {  0, -1,  2,  3,  4,  5, -1,  7,
++				  8,  9, 10, 11, -1, -1, 14, 15,
++				 -1, 17, 18, -1, -1, 21, 22, 23,
++	/* Rev 1 boards,  8-31 accessible via board-id resistors R3-R10 */
++	/* Rev 2 boards,  8-31 accessible via P5 */
++				 24, 25, -1, 27, 28, 29, 30, 31 };
++
++static int setup_gpio(int gpio)
++{
++	volatile int i;
++
++	if (gpio > 31 || gpio_pins[gpio] < 0)
++		return -1;
++
++	*(gpio_map+0x0025) &= ~3;
++	/*  After writing to the GPPUD register, need to wait
++	    150 cycles as per p101 BCM2835.pdf. The following
++	    while loop uses approx five instructions plus another
++	    two to load the counter.
++	    Note: the int must be volatile or gcc will optimise
++	    loop out. */
++	i=30; while (--i); // need a 150 cycle min wait
++	*(gpio_map+0x0026+(gpio/32)) = 1<<(gpio%32);
++	// Another 150 cycle wait required after a write to GPPUDCLK
++	i=30; while (--i);
++	*(gpio_map+0x0025) &= ~3;
++	*(gpio_map+0x0026+(gpio/32)) = 0;
++	*(gpio_map+(gpio/10)) = (*(gpio_map+(gpio/10))&~(7<<((gpio%10)*3)))|(1<<((gpio%10)*3));
++	return 0;
++}
++
++static void cleanup_io(PrivateData *p)
++{
++
++	INP_GPIO(p->rpi_gpio->enable);
++	INP_GPIO(p->rpi_gpio->rs);
++	INP_GPIO(p->rpi_gpio->d7);
++	INP_GPIO(p->rpi_gpio->d6);
++	INP_GPIO(p->rpi_gpio->d5);
++	INP_GPIO(p->rpi_gpio->d4);
++
++	if (p->have_backlight)
++		INP_GPIO(p->rpi_gpio->bl);
++
++	munmap((caddr_t)gpio_map, BLOCK_SIZE);
++	free(p->rpi_gpio);
++	return;
++}
++
++/**
++ * Initialize the driver.
++ * \param drvthis  Pointer to driver structure.
++ * \retval 0       Success.
++ * \retval -1      Error.
++ */
++int
++hd_init_rpi(Driver *drvthis)
++{
++	PrivateData *p = (PrivateData*) drvthis->private_data;
++
++	if (setup_io(drvthis) < 0) {
++		report(RPT_ERR, "Failed to set up gpio.");
++		return -1;
++	}
++
++	p->rpi_gpio = malloc(sizeof(struct rpi_gpio_map));
++	if (p->rpi_gpio == NULL) {
++		report(RPT_ERR, "%s: unable to allocate memory", drvthis->name);
++		return -1;
++	}
++
++	p->rpi_gpio->enable = drvthis->config_get_int(drvthis->name, "EN", 0, EN);
++	p->rpi_gpio->rs = drvthis->config_get_int(drvthis->name, "RS", 0, RS);
++	p->rpi_gpio->d7 = drvthis->config_get_int(drvthis->name, "D7", 0, D7);
++	p->rpi_gpio->d6 = drvthis->config_get_int(drvthis->name, "D6", 0, D6);
++	p->rpi_gpio->d5 = drvthis->config_get_int(drvthis->name, "D5", 0, D5);
++	p->rpi_gpio->d4 = drvthis->config_get_int(drvthis->name, "D4", 0, D4);
++	p->have_backlight = drvthis->config_get_bool(drvthis->name, "backlight", 0, 0);
++
++	if (p->have_backlight) {
++	/* Backlight setup is optional */
++		p->rpi_gpio->bl = drvthis->config_get_int(drvthis->name, "BL", 0, BL);
++		if (p->rpi_gpio->bl == p->rpi_gpio->enable ||
++				p->rpi_gpio->bl == p->rpi_gpio->rs ||
++				p->rpi_gpio->bl == p->rpi_gpio->d7 ||
++				p->rpi_gpio->bl == p->rpi_gpio->d6 ||
++				p->rpi_gpio->bl == p->rpi_gpio->d5 ||
++				p->rpi_gpio->bl == p->rpi_gpio->d4) {
++			report(RPT_ERR, "GPIO pin specified for BL is already used\n");
++			return -1;
++		}
++		if (setup_gpio(p->rpi_gpio->bl)) {
++			report(RPT_ERR, "Invalid GPIO specified for BL\n");
++			return -1;
++		}
++	}
++
++	if (p->rpi_gpio->enable == p->rpi_gpio->rs ||
++			p->rpi_gpio->enable == p->rpi_gpio->d7 ||
++			p->rpi_gpio->enable == p->rpi_gpio->d6 ||
++			p->rpi_gpio->enable == p->rpi_gpio->d5 ||
++			p->rpi_gpio->enable == p->rpi_gpio->d4 ||
++			p->rpi_gpio->rs == p->rpi_gpio->d7 ||
++			p->rpi_gpio->rs == p->rpi_gpio->d6 ||
++			p->rpi_gpio->rs == p->rpi_gpio->d5 ||
++			p->rpi_gpio->rs == p->rpi_gpio->d4 ||
++			p->rpi_gpio->d7 == p->rpi_gpio->d6 ||
++			p->rpi_gpio->d7 == p->rpi_gpio->d5 ||
++			p->rpi_gpio->d7 == p->rpi_gpio->d4 ||
++			p->rpi_gpio->d6 == p->rpi_gpio->d5 ||
++			p->rpi_gpio->d6 == p->rpi_gpio->d4 ||
++			p->rpi_gpio->d5 == p->rpi_gpio->d4) {
++		report(RPT_ERR, "Can not use the same GPIO pin twice\n");
++		return -1;
++	}
++
++	if (setup_gpio(p->rpi_gpio->enable) ||
++			setup_gpio(p->rpi_gpio->rs) ||
++			setup_gpio(p->rpi_gpio->d7) ||
++			setup_gpio(p->rpi_gpio->d6) ||
++			setup_gpio(p->rpi_gpio->d5) ||
++			setup_gpio(p->rpi_gpio->d4)) {
++		report(RPT_ERR, "Invalid GPIO specified\n");
++		return -1;
++	}
++
++	p->hd44780_functions->senddata = lcdrpi_HD44780_senddata;
++	p->hd44780_functions->backlight = lcdrpi_HD44780_backlight;
++	// stubbed function as keypad is not supported.
++	p->hd44780_functions->readkeypad = lcdrpi_HD44780_readkeypad;
++	p->hd44780_functions->close = cleanup_io;
++
++	// setup the lcd in 4 bit mode
++	p->hd44780_functions->senddata(p, 0, RS_INSTR, /*FUNCSET | IF_8BIT*/ 0x33);
++	p->hd44780_functions->uPause(p, 4100);
++	p->hd44780_functions->senddata(p, 0, RS_INSTR, /*FUNCSET | IF_4BIT*/ 0x32);
++	p->hd44780_functions->uPause(p, 150);
++
++	common_init(p, IF_4BIT);
++
++	return 0;
++}
++
++
++/**
++ * Send data or commands to the display.
++ * \param p          Pointer to driver's private data structure.
++ * \param displayID  ID of the display (or 0 for all) to send data to.
++ * \param flags      Defines whether to end a command or data.
++ * \param ch         The value to send.
++ */
++void
++lcdrpi_HD44780_senddata(PrivateData *p, unsigned char displayID, unsigned char flags, unsigned char ch)
++{
++
++	if (displayID > 1) {
++		return;
++	}
++	if (gpio_map == NULL) {
++		printf("gpio not set up.\n");
++		return;
++	}
++	if (flags == RS_INSTR) {
++                SET_GPIO(p->rpi_gpio->rs, 0);
++	}
++	else { // flags == RS_DATA
++                SET_GPIO(p->rpi_gpio->rs, 1);
++	}
++	// Clear data lines ready for nibbles
++	SET_GPIO(p->rpi_gpio->d7, 0);
++	SET_GPIO(p->rpi_gpio->d6, 0);
++	SET_GPIO(p->rpi_gpio->d5, 0);
++	SET_GPIO(p->rpi_gpio->d4, 0);
++
++	p->hd44780_functions->uPause(p, 50);
++
++	// Output upper nibble first
++	SET_GPIO(p->rpi_gpio->d7, (ch & 0x80));
++	SET_GPIO(p->rpi_gpio->d6, (ch & 0x40));
++	SET_GPIO(p->rpi_gpio->d5, (ch & 0x20));
++	SET_GPIO(p->rpi_gpio->d4, (ch & 0x10));
++
++	p->hd44780_functions->uPause(p, 50);
++
++	// Data is clocked on the falling edge of EN
++	SET_GPIO(p->rpi_gpio->enable, 1);
++	p->hd44780_functions->uPause(p, 50);
++	SET_GPIO(p->rpi_gpio->enable, 0);
++	p->hd44780_functions->uPause(p, 50);
++
++	// Do same for lower nibble
++	SET_GPIO(p->rpi_gpio->d7, 0);
++	SET_GPIO(p->rpi_gpio->d6, 0);
++	SET_GPIO(p->rpi_gpio->d5, 0);
++	SET_GPIO(p->rpi_gpio->d4, 0);
++	p->hd44780_functions->uPause(p, 50);
++	SET_GPIO(p->rpi_gpio->d7, (ch & 0x08));
++	SET_GPIO(p->rpi_gpio->d6, (ch & 0x04));
++	SET_GPIO(p->rpi_gpio->d5, (ch & 0x02));
++	SET_GPIO(p->rpi_gpio->d4, (ch & 0x01));
++	p->hd44780_functions->uPause(p, 50);
++
++	SET_GPIO(p->rpi_gpio->enable, 1);
++	p->hd44780_functions->uPause(p, 50);
++	SET_GPIO(p->rpi_gpio->enable, 0);
++	p->hd44780_functions->uPause(p, 50);
++
++	return;
++}
++
++
++/**
++ * Turn display backlight on or off.
++ * \param p      Pointer to driver's private data structure.
++ * \param state  New backlight status.
++ */
++void lcdrpi_HD44780_backlight(PrivateData *p, unsigned char state)
++{
++	p->backlight_bit = (state?0:1);
++	if (p->rpi_gpio->bl > -1 && p->rpi_gpio->bl < 32)
++		SET_GPIO(p->rpi_gpio->bl, p->backlight_bit);
++	return;
++}
++
++
++/**
++ * Read keypress.
++ * \param p      Pointer to driver's private data structure.
++ * \param YData  Bitmap of rows / lines to enable.
++ * \return       Bitmap of the pressed keys.
++ */
++unsigned char lcdrpi_HD44780_readkeypad(PrivateData *p, unsigned int YData)
++{
++	return 0;
++}
+diff -u -N -X /tmp/diff.exclude -r lcdproc-0.5.6-old/server/drivers/hd44780-rpi.h lcdproc-0.5.6-new/server/drivers/hd44780-rpi.h
+--- lcdproc-0.5.6-old/server/drivers/hd44780-rpi.h	1969-12-31 17:00:00.000000000 -0700
++++ lcdproc-0.5.6-new/server/drivers/hd44780-rpi.h	2013-03-31 18:54:40.186793246 -0600
+@@ -0,0 +1,32 @@
++#ifndef HD_LCDRPI_H
++#define HD_LCDRPI_H
++
++#include "lcd.h"					  /* for Driver */
++
++// initialise this particular driver
++int hd_init_rpi(Driver *drvthis);
++
++/* rpi_map is addcessed through the hd44780_private_data struct.
++    Data stored here is used for mapping physical GPIO pins to
++    BCM2835 gpio */
++struct rpi_gpio_map {
++	int enable;
++	int rs;
++	int bl;
++	int d7;
++	int d6;
++	int d5;
++	int d4;
++};
++
++
++#define BCM2708_PERI_BASE        0x20000000
++#define GPIO_BASE                (BCM2708_PERI_BASE + 0x200000) /* GPIO controller */
++
++#define PAGE_SIZE (4*1024)
++#define BLOCK_SIZE (4*1024)
++
++#define INP_GPIO(g) *(gpio_map+((g)/10)) &= ~(7<<(((g)%10)*3))
++#define SET_GPIO(g,a) *(gpio_map+(a?7:10))=1<<(g%32);
++
++#endif // HD_LCDRPI_H
