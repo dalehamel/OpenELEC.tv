@@ -56,6 +56,7 @@ cmake -DCMAKE_TOOLCHAIN_FILE=$CMAKE_CONF \
       -DCMAKE_INCLUDE_PATH="$SYSROOT_PREFIX/usr/include/interface/vmcs_host/linux;$SYSROOT_PREFIX/usr/include/interface/vcos/pthreads;$TOOLCHAIN_DIR/armv6zk-openelec-linux-gnueabi/sysroot/usr/include/python2.7/" \
       -DRPI_EXTERNAL_PYTHON_HOME="$TOOLCHAIN_DIR/armv6zk-openelec-linux-gnueabi/sysroot/usr" \
       -DTARGET_PLATFORM=RPI \
+      -DTARGET_RPI=1 \
       -DCMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE \
       $SRC_DIR
 
