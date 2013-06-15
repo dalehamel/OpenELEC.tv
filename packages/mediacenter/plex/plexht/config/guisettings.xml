@@ -64,7 +64,8 @@
             <sortorder>1</sortorder>
         </videonavgenres>
         <videonavtitles>
-            <viewmode>0</viewmode>
+            <viewmode>65536</viewmode>
+            <sortmethod>1</sortmethod>
             <sortorder>1</sortorder>
         </videonavtitles>
         <videonavepisodes>

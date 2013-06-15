@@ -1,5 +1,5 @@
 # Name of the Distro to build (full name, without special charcters)
-  DISTRONAME="rasplex"
+  DISTRONAME="RasPlex"
 
 # Welcome Message for e.g. SSH Server (up to 5 Lines)
   GREETING0="##############################################"
