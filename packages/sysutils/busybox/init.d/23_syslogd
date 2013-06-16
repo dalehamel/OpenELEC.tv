@@ -26,9 +26,7 @@
 (
   progress "Starting Syslog daemon"
 
-  if [ -e /storage/.cache/syslog/remote ] ; then
-    source /storage/.cache/syslog/remote
-  fi
+  source /var/config/settings.conf
 
   SYSLOGD_OPTIONS="-L"
 

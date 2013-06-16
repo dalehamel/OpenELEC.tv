@@ -22,10 +22,6 @@
 
 . config/options $1
 
-CFLAGS="$CFLAGS -fPIC"
-CXXFLAGS="$CXXFLAGS -fPIC"
-LDFLAGS="$LDFLAGS -fPIC"
-
 cd $PKG_BUILD
 mkdir -p m4 && do_autoreconf
 
@@ -36,8 +32,8 @@ mkdir -p .build-target && cd .build-target
              --exec-prefix=/usr \
              --sysconfdir=/etc \
              --datadir=/usr/share \
-             --disable-shared \
-             --enable-static \
+             --enable-shared \
+             --disable-static \
              --enable-utf8 \
              --enable-unicode-properties \
              --with-gnu-ld

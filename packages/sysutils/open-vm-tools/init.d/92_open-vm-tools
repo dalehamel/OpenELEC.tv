@@ -23,15 +23,20 @@
 # runlevels: openelec
 
 (
-  if [ -f /storage/.cache/xkb/layout ]; then
-    . /storage/.cache/xkb/layout
-
-    progress "setup keyboard layout"
-
-    # waiting for Xorg to start
-      wait_for_xorg
-
-    # setup keymap
-      setxkbmap -display $DISPLAY -layout "$XKBLAYOUT" -model "$XKBMODEL" -option "grp:alt_shift_toggle";
+  # exit if not in vmware
+  if [ ! -x /usr/bin/vmware-checkvm ] || ! /usr/bin/vmware-checkvm > /dev/null 2>&1 ; then
+    exit 0
   fi
+
+  wait_for_xorg
+
+  # load modules
+  modprobe vmhgfs
+  modprobe vmsync
+  modprobe vmblock
+  modprobe -r pcnet32
+  modprobe vmxnet
+  modprobe pcnet32
+
+  /usr/bin/vmtoolsd --background /var/run/vmtoolsd.pid
 )&

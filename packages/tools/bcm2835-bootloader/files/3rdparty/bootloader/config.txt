@@ -112,5 +112,5 @@ sdram_freq=350
 over_voltage=0
 hdmi_force_hotplug=1
 hdmi_drive=2
-gpu_mem_256=100
+gpu_mem_256=128
 gpu_mem_512=200

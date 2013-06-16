@@ -31,7 +31,8 @@ progress "make variable directory structure"
            /var/run \
            /var/tmp \
            /var/run/sepermit \
-           /var/run/lirc
+           /var/run/lirc \
+           /var/log
 
   chmod 1777 /var/run /var/tmp
 

@@ -25,7 +25,6 @@
 
 if [ -d /usr/config ]; then
   progress "copy userconfig and samples"
-  OPENELEC_SETTINGS="$HOME/.plexht/userdata/addon_data/os.openelec.settings/settings.xml"
 
     cd /usr/config
     mkdir -p /storage/.config
