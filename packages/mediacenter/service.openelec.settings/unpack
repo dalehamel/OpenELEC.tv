@@ -29,4 +29,5 @@ ZIP_PKG="master.zip"
 mkdir -p $BUILD/${PKG_NAME}-${PKG_VERSION}
   unzip $SOURCES/$1/$ZIP_PKG 
   mv rasplex-settings-master/* $BUILD/${PKG_NAME}-${PKG_VERSION} 
+  #mv service.openelec.settings-master/* $BUILD/${PKG_NAME}-${PKG_VERSION} 
 
