@@ -46,8 +46,8 @@ mkdir -p $BASEDIR/$LOGDIR
 #  getlog_cmd cat /etc/issue
 
 # XBMC.log
-  LOGFILE="01_PlexHT.log"
-  for i in `find /storage/.plexht/temp/ -type f -name "*.log"`; do
+  LOGFILE="01_XBMC.log"
+  for i in `find /storage/.xbmc/temp/ -type f -name "*.log"`; do
     getlog_cmd cat $i
   done
 

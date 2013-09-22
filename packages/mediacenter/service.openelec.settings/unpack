@@ -25,7 +25,12 @@
 ZIP_PKG="`echo $PKG_URL | sed 's%.*/\(.*\)$%\1%'`"
 [ -d $PKG_BUILD ] && rm -rf $PKG_BUILD
 
-cd $BUILD
-unzip -d $PKG_NAME-$PKG_VERSION -o ../sources/$1/$ZIP_PKG
-mv $PKG_NAME-$PKG_VERSION/service.openelec.settings-*/* $PKG_NAME-$PKG_VERSION
-rm -r $PKG_NAME-$PKG_VERSION/service.openelec.settings-*
+mkdir -p $BUILD/${PKG_NAME}-${PKG_VERSION}
+  unzip $SOURCES/$1/$ZIP_PKG -d $BUILD/${PKG_NAME}-${PKG_VERSION} >/dev/null 2>&1
+
+echo "### Applying upstream patches ###"
+
+for patch in `ls $PKG_DIR/patches.upstream/*.patch 2>/dev/null`; do
+  cat $patch | patch -d \
+    `echo $BUILD/$PKG_NAME-$PKG_VERSION | cut -f1 -d\ ` -p1
+done
